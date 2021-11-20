@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.util.ints import uint8, uint64
-from replaceme.util.streamable import Streamable, streamable
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.util.ints import uint8, uint64
+from goji.util.streamable import Streamable, streamable
 
 
 @dataclass(frozen=True)

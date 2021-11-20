@@ -6,11 +6,11 @@ import aiosqlite
 import pytest
 from blspy import AugSchemeMPL
 
-from replaceme.util.db_wrapper import DBWrapper
-from replaceme.util.ints import uint32
-from replaceme.wallet.derivation_record import DerivationRecord
-from replaceme.wallet.util.wallet_types import WalletType
-from replaceme.wallet.wallet_puzzle_store import WalletPuzzleStore
+from goji.util.db_wrapper import DBWrapper
+from goji.util.ints import uint32
+from goji.wallet.derivation_record import DerivationRecord
+from goji.wallet.util.wallet_types import WalletType
+from goji.wallet.wallet_puzzle_store import WalletPuzzleStore
 
 
 @pytest.fixture(scope="module")

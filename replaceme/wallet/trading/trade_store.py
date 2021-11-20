@@ -2,13 +2,13 @@ from typing import List, Optional
 
 import aiosqlite
 
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.mempool_inclusion_status import MempoolInclusionStatus
-from replaceme.util.db_wrapper import DBWrapper
-from replaceme.util.errors import Err
-from replaceme.util.ints import uint8, uint32
-from replaceme.wallet.trade_record import TradeRecord
-from replaceme.wallet.trading.trade_status import TradeStatus
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.mempool_inclusion_status import MempoolInclusionStatus
+from goji.util.db_wrapper import DBWrapper
+from goji.util.errors import Err
+from goji.util.ints import uint8, uint32
+from goji.wallet.trade_record import TradeRecord
+from goji.wallet.trading.trade_status import TradeStatus
 
 
 class TradeStore:

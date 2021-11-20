@@ -1,6 +1,6 @@
 import pytest
 
-from replaceme.wallet.chialisp import (
+from goji.wallet.chialisp import (
     apply,
     args,
     cons,

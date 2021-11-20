@@ -1,10 +1,10 @@
 from clvm_tools import binutils
 
-from replaceme.types.blockchain_format.program import Program, INFINITE_COST
-from replaceme.types.announcement import Announcement
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.util.condition_tools import parse_sexp_to_conditions
-from replaceme.wallet.puzzles.load_clvm import load_clvm
+from goji.types.blockchain_format.program import Program, INFINITE_COST
+from goji.types.announcement import Announcement
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.util.condition_tools import parse_sexp_to_conditions
+from goji.wallet.puzzles.load_clvm import load_clvm
 
 SINGLETON_MOD = load_clvm("singleton_top_layer.clvm")
 LAUNCHER_PUZZLE = load_clvm("singleton_launcher.clvm")

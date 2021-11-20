@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 
-from replaceme.consensus.constants import ConsensusConstants
-from replaceme.types.blockchain_format.sized_bytes import bytes100
-from replaceme.util.streamable import Streamable, streamable
+from goji.consensus.constants import ConsensusConstants
+from goji.types.blockchain_format.sized_bytes import bytes100
+from goji.util.streamable import Streamable, streamable
 
 
 @dataclass(frozen=True)

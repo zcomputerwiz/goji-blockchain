@@ -1,6 +1,6 @@
 import blspy
 
-from replaceme.types.blockchain_format.sized_bytes import bytes32
+from goji.types.blockchain_format.sized_bytes import bytes32
 
 
 def std_hash(b) -> bytes32:

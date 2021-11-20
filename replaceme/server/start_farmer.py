@@ -1,17 +1,17 @@
 import pathlib
 from typing import Dict, Optional
 
-from replaceme.consensus.constants import ConsensusConstants
-from replaceme.consensus.default_constants import DEFAULT_CONSTANTS
-from replaceme.farmer.farmer import Farmer
-from replaceme.farmer.farmer_api import FarmerAPI
-from replaceme.rpc.farmer_rpc_api import FarmerRpcApi
-from replaceme.server.outbound_message import NodeType
-from replaceme.server.start_service import run_service
-from replaceme.types.peer_info import PeerInfo
-from replaceme.util.config import load_config_cli
-from replaceme.util.default_root import DEFAULT_ROOT_PATH
-from replaceme.util.keychain import Keychain
+from goji.consensus.constants import ConsensusConstants
+from goji.consensus.default_constants import DEFAULT_CONSTANTS
+from goji.farmer.farmer import Farmer
+from goji.farmer.farmer_api import FarmerAPI
+from goji.rpc.farmer_rpc_api import FarmerRpcApi
+from goji.server.outbound_message import NodeType
+from goji.server.start_service import run_service
+from goji.types.peer_info import PeerInfo
+from goji.util.config import load_config_cli
+from goji.util.default_root import DEFAULT_ROOT_PATH
+from goji.util.keychain import Keychain
 
 # See: https://bugs.python.org/issue29288
 "".encode("idna")

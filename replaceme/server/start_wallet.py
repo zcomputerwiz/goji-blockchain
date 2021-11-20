@@ -2,19 +2,19 @@ import pathlib
 from multiprocessing import freeze_support
 from typing import Dict, Optional
 
-from replaceme.consensus.constants import ConsensusConstants
-from replaceme.consensus.default_constants import DEFAULT_CONSTANTS
-from replaceme.rpc.wallet_rpc_api import WalletRpcApi
-from replaceme.server.outbound_message import NodeType
-from replaceme.server.start_service import run_service
-from replaceme.types.peer_info import PeerInfo
-from replaceme.util.config import load_config_cli, load_config
-from replaceme.util.default_root import DEFAULT_ROOT_PATH
-from replaceme.util.keychain import Keychain
-from replaceme.wallet.wallet_node import WalletNode
+from goji.consensus.constants import ConsensusConstants
+from goji.consensus.default_constants import DEFAULT_CONSTANTS
+from goji.rpc.wallet_rpc_api import WalletRpcApi
+from goji.server.outbound_message import NodeType
+from goji.server.start_service import run_service
+from goji.types.peer_info import PeerInfo
+from goji.util.config import load_config_cli, load_config
+from goji.util.default_root import DEFAULT_ROOT_PATH
+from goji.util.keychain import Keychain
+from goji.wallet.wallet_node import WalletNode
 
 # See: https://bugs.python.org/issue29288
-from replaceme.wallet.wallet_node_api import WalletNodeAPI
+from goji.wallet.wallet_node_api import WalletNodeAPI
 
 "".encode("idna")
 

@@ -1,8 +1,8 @@
 from typing import Union
 
-from replaceme.consensus.block_record import BlockRecord
-from replaceme.consensus.blockchain_interface import BlockchainInterface
-from replaceme.types.header_block import HeaderBlock
+from goji.consensus.block_record import BlockRecord
+from goji.consensus.blockchain_interface import BlockchainInterface
+from goji.types.header_block import HeaderBlock
 
 
 def find_fork_point_in_chain(

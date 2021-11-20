@@ -2,16 +2,16 @@ import asyncio
 import logging
 import pytest
 
-from replaceme.rpc.rpc_server import start_rpc_server
-from replaceme.rpc.wallet_rpc_api import WalletRpcApi
-from replaceme.rpc.wallet_rpc_client import WalletRpcClient
-from replaceme.simulator.simulator_protocol import FarmNewBlockProtocol
-from replaceme.types.peer_info import PeerInfo
-from replaceme.util.ints import uint16, uint64
-from replaceme.wallet.util.wallet_types import WalletType
+from goji.rpc.rpc_server import start_rpc_server
+from goji.rpc.wallet_rpc_api import WalletRpcApi
+from goji.rpc.wallet_rpc_client import WalletRpcClient
+from goji.simulator.simulator_protocol import FarmNewBlockProtocol
+from goji.types.peer_info import PeerInfo
+from goji.util.ints import uint16, uint64
+from goji.wallet.util.wallet_types import WalletType
 from tests.setup_nodes import self_hostname, setup_simulators_and_wallets, bt
 from tests.time_out_assert import time_out_assert
-from replaceme.wallet.did_wallet.did_wallet import DIDWallet
+from goji.wallet.did_wallet.did_wallet import DIDWallet
 
 
 log = logging.getLogger(__name__)

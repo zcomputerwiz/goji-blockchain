@@ -1,13 +1,13 @@
 from dataclasses import dataclass
 from typing import List, Optional, Set
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.blockchain_format.foliage import Foliage, FoliageTransactionBlock, TransactionsInfo
-from replaceme.types.blockchain_format.program import SerializedProgram
-from replaceme.types.blockchain_format.reward_chain_block import RewardChainBlock
-from replaceme.types.blockchain_format.vdf import VDFProof
-from replaceme.types.end_of_slot_bundle import EndOfSubSlotBundle
-from replaceme.util.ints import uint32
-from replaceme.util.streamable import Streamable, streamable
+from goji.types.blockchain_format.coin import Coin
+from goji.types.blockchain_format.foliage import Foliage, FoliageTransactionBlock, TransactionsInfo
+from goji.types.blockchain_format.program import SerializedProgram
+from goji.types.blockchain_format.reward_chain_block import RewardChainBlock
+from goji.types.blockchain_format.vdf import VDFProof
+from goji.types.end_of_slot_bundle import EndOfSubSlotBundle
+from goji.util.ints import uint32
+from goji.util.streamable import Streamable, streamable
 
 
 @dataclass(frozen=True)

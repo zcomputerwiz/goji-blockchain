@@ -1,9 +1,9 @@
 from typing import Dict, List, Optional
 
-from replaceme.types.blockchain_format.coin import Coin, hash_coin_list
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.util.errors import Err
-from replaceme.util.merkle_set import MerkleSet
+from goji.types.blockchain_format.coin import Coin, hash_coin_list
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.util.errors import Err
+from goji.util.merkle_set import MerkleSet
 
 
 def validate_block_merkle_roots(

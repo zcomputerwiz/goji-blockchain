@@ -6,22 +6,22 @@ import pytest
 from blspy import AugSchemeMPL
 from chiapos import DiskPlotter
 
-from replaceme.consensus.coinbase import create_puzzlehash_for_pk
-from replaceme.plotting.util import stream_plot_info_ph, stream_plot_info_pk
-from replaceme.protocols import farmer_protocol
-from replaceme.rpc.farmer_rpc_api import FarmerRpcApi
-from replaceme.rpc.farmer_rpc_client import FarmerRpcClient
-from replaceme.rpc.harvester_rpc_api import HarvesterRpcApi
-from replaceme.rpc.harvester_rpc_client import HarvesterRpcClient
-from replaceme.rpc.rpc_server import start_rpc_server
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.util.bech32m import decode_puzzle_hash, encode_puzzle_hash
+from goji.consensus.coinbase import create_puzzlehash_for_pk
+from goji.plotting.util import stream_plot_info_ph, stream_plot_info_pk
+from goji.protocols import farmer_protocol
+from goji.rpc.farmer_rpc_api import FarmerRpcApi
+from goji.rpc.farmer_rpc_client import FarmerRpcClient
+from goji.rpc.harvester_rpc_api import HarvesterRpcApi
+from goji.rpc.harvester_rpc_client import HarvesterRpcClient
+from goji.rpc.rpc_server import start_rpc_server
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.util.bech32m import decode_puzzle_hash, encode_puzzle_hash
 from tests.block_tools import get_plot_dir
-from replaceme.util.byte_types import hexstr_to_bytes
-from replaceme.util.config import load_config, save_config
-from replaceme.util.hash import std_hash
-from replaceme.util.ints import uint8, uint16, uint32, uint64
-from replaceme.wallet.derive_keys import master_sk_to_wallet_sk, master_sk_to_pooling_authentication_sk
+from goji.util.byte_types import hexstr_to_bytes
+from goji.util.config import load_config, save_config
+from goji.util.hash import std_hash
+from goji.util.ints import uint8, uint16, uint32, uint64
+from goji.wallet.derive_keys import master_sk_to_wallet_sk, master_sk_to_pooling_authentication_sk
 from tests.setup_nodes import bt, self_hostname, setup_farmer_harvester, test_constants
 from tests.time_out_assert import time_out_assert, time_out_assert_custom_interval
 
@@ -200,7 +200,7 @@ class TestRpc:
                 master_sk_to_wallet_sk(bt.pool_master_sk, uint32(472)).get_g1()
             )
 
-            await client.set_reward_targets(encode_puzzle_hash(new_ph, "xch"), encode_puzzle_hash(new_ph_2, "xch"))
+            await client.set_reward_targets(encode_puzzle_hash(new_ph, "xgj"), encode_puzzle_hash(new_ph_2, "xgj"))
             targets_3 = await client.get_reward_targets(True)
             assert decode_puzzle_hash(targets_3["farmer_target"]) == new_ph
             assert decode_puzzle_hash(targets_3["pool_target"]) == new_ph_2
@@ -209,7 +209,7 @@ class TestRpc:
             new_ph_3: bytes32 = create_puzzlehash_for_pk(
                 master_sk_to_wallet_sk(bt.pool_master_sk, uint32(1888)).get_g1()
             )
-            await client.set_reward_targets(None, encode_puzzle_hash(new_ph_3, "xch"))
+            await client.set_reward_targets(None, encode_puzzle_hash(new_ph_3, "xgj"))
             targets_4 = await client.get_reward_targets(True)
             assert decode_puzzle_hash(targets_4["farmer_target"]) == new_ph
             assert decode_puzzle_hash(targets_4["pool_target"]) == new_ph_3
@@ -217,10 +217,10 @@ class TestRpc:
 
             root_path = farmer_api.farmer._root_path
             config = load_config(root_path, "config.yaml")
-            assert config["farmer"]["xch_target_address"] == encode_puzzle_hash(new_ph, "xch")
-            assert config["pool"]["xch_target_address"] == encode_puzzle_hash(new_ph_3, "xch")
+            assert config["farmer"]["xgj_target_address"] == encode_puzzle_hash(new_ph, "xgj")
+            assert config["pool"]["xgj_target_address"] == encode_puzzle_hash(new_ph_3, "xgj")
 
-            new_ph_3_encoded = encode_puzzle_hash(new_ph_3, "xch")
+            new_ph_3_encoded = encode_puzzle_hash(new_ph_3, "xgj")
             added_char = new_ph_3_encoded + "a"
             with pytest.raises(ValueError):
                 await client.set_reward_targets(None, added_char)

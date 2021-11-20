@@ -1,14 +1,14 @@
 from dataclasses import dataclass
 from typing import List, Optional
 
-from replaceme.consensus.constants import ConsensusConstants
-from replaceme.consensus.pot_iterations import calculate_ip_iters, calculate_sp_iters
-from replaceme.types.blockchain_format.classgroup import ClassgroupElement
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.blockchain_format.sub_epoch_summary import SubEpochSummary
-from replaceme.util.ints import uint8, uint32, uint64, uint128
-from replaceme.util.streamable import Streamable, streamable
+from goji.consensus.constants import ConsensusConstants
+from goji.consensus.pot_iterations import calculate_ip_iters, calculate_sp_iters
+from goji.types.blockchain_format.classgroup import ClassgroupElement
+from goji.types.blockchain_format.coin import Coin
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.blockchain_format.sub_epoch_summary import SubEpochSummary
+from goji.util.ints import uint8, uint32, uint64, uint128
+from goji.util.streamable import Streamable, streamable
 
 
 @dataclass(frozen=True)

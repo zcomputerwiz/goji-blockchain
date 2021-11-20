@@ -1,12 +1,12 @@
 from dataclasses import dataclass
 from typing import List, Optional, Tuple
 
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.util.ints import uint64
-from replaceme.util.streamable import streamable, Streamable
-from replaceme.wallet.lineage_proof import LineageProof
-from replaceme.types.blockchain_format.program import Program
-from replaceme.types.blockchain_format.coin import Coin
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.util.ints import uint64
+from goji.util.streamable import streamable, Streamable
+from goji.wallet.lineage_proof import LineageProof
+from goji.types.blockchain_format.program import Program
+from goji.types.blockchain_format.coin import Coin
 
 
 @dataclass(frozen=True)

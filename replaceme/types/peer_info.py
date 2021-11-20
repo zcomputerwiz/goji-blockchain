@@ -2,8 +2,8 @@ import ipaddress
 from dataclasses import dataclass
 from typing import Optional, Union
 
-from replaceme.util.ints import uint16, uint64
-from replaceme.util.streamable import Streamable, streamable
+from goji.util.ints import uint16, uint64
+from goji.util.streamable import Streamable, streamable
 
 
 @dataclass(frozen=True)

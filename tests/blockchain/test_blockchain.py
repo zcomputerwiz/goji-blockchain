@@ -11,36 +11,36 @@ import pytest
 from blspy import AugSchemeMPL, G2Element
 from clvm.casts import int_to_bytes
 
-from replaceme.consensus.block_rewards import calculate_base_farmer_reward
-from replaceme.consensus.blockchain import ReceiveBlockResult
-from replaceme.consensus.coinbase import create_farmer_coin
-from replaceme.consensus.pot_iterations import is_overflow_block
-from replaceme.full_node.bundle_tools import detect_potential_template_generator
-from replaceme.types.blockchain_format.classgroup import ClassgroupElement
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.blockchain_format.foliage import TransactionsInfo
-from replaceme.types.blockchain_format.program import SerializedProgram
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.blockchain_format.slots import InfusedChallengeChainSubSlot
-from replaceme.types.blockchain_format.vdf import VDFInfo, VDFProof
-from replaceme.types.condition_opcodes import ConditionOpcode
-from replaceme.types.condition_with_args import ConditionWithArgs
-from replaceme.types.end_of_slot_bundle import EndOfSubSlotBundle
-from replaceme.types.full_block import FullBlock
-from replaceme.types.generator_types import BlockGenerator
-from replaceme.types.spend_bundle import SpendBundle
-from replaceme.types.unfinished_block import UnfinishedBlock
+from goji.consensus.block_rewards import calculate_base_farmer_reward
+from goji.consensus.blockchain import ReceiveBlockResult
+from goji.consensus.coinbase import create_farmer_coin
+from goji.consensus.pot_iterations import is_overflow_block
+from goji.full_node.bundle_tools import detect_potential_template_generator
+from goji.types.blockchain_format.classgroup import ClassgroupElement
+from goji.types.blockchain_format.coin import Coin
+from goji.types.blockchain_format.foliage import TransactionsInfo
+from goji.types.blockchain_format.program import SerializedProgram
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.blockchain_format.slots import InfusedChallengeChainSubSlot
+from goji.types.blockchain_format.vdf import VDFInfo, VDFProof
+from goji.types.condition_opcodes import ConditionOpcode
+from goji.types.condition_with_args import ConditionWithArgs
+from goji.types.end_of_slot_bundle import EndOfSubSlotBundle
+from goji.types.full_block import FullBlock
+from goji.types.generator_types import BlockGenerator
+from goji.types.spend_bundle import SpendBundle
+from goji.types.unfinished_block import UnfinishedBlock
 from tests.block_tools import create_block_tools_async, get_vdf_info_and_proof
-from replaceme.util.errors import Err
-from replaceme.util.hash import std_hash
-from replaceme.util.ints import uint8, uint64, uint32
-from replaceme.util.merkle_set import MerkleSet
-from replaceme.util.recursive_replace import recursive_replace
+from goji.util.errors import Err
+from goji.util.hash import std_hash
+from goji.util.ints import uint8, uint64, uint32
+from goji.util.merkle_set import MerkleSet
+from goji.util.recursive_replace import recursive_replace
 from tests.wallet_tools import WalletTool
 from tests.setup_nodes import bt, test_constants
 from tests.util.blockchain import create_blockchain
 from tests.util.keyring import TempKeyring
-from replaceme.wallet.puzzles.p2_delegated_puzzle_or_hidden_puzzle import (
+from goji.wallet.puzzles.p2_delegated_puzzle_or_hidden_puzzle import (
     DEFAULT_HIDDEN_PUZZLE_HASH,
     calculate_synthetic_secret_key,
 )
@@ -2494,7 +2494,7 @@ class TestBodyValidation:
 
         spend = list(blocks[-1].get_included_reward_coins())[0]
         print("spend=", spend)
-        # this create coin will spend all of the coin, so the 10 mojos below
+        # this create coin will spend all of the coin, so the 10 mojis below
         # will be "minted".
         output = ConditionWithArgs(ConditionOpcode.CREATE_COIN, [bt.pool_ph, int_to_bytes(spend.amount)])
         condition_dict = {ConditionOpcode.CREATE_COIN: [output]}

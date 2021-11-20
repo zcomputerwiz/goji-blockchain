@@ -2,10 +2,10 @@ import logging
 import time
 from typing import Callable, Optional
 
-from replaceme.protocols import timelord_protocol
-from replaceme.timelord.timelord import Chain, IterationType, Timelord, iters_from_block
-from replaceme.util.api_decorators import api_request
-from replaceme.util.ints import uint64
+from goji.protocols import timelord_protocol
+from goji.timelord.timelord import Chain, IterationType, Timelord, iters_from_block
+from goji.util.api_decorators import api_request
+from goji.util.ints import uint64
 
 log = logging.getLogger(__name__)
 

@@ -1,19 +1,19 @@
 from typing import List, Optional, Union
 
-from replaceme.consensus.block_record import BlockRecord
-from replaceme.consensus.blockchain_interface import BlockchainInterface
-from replaceme.consensus.constants import ConsensusConstants
-from replaceme.consensus.deficit import calculate_deficit
-from replaceme.consensus.difficulty_adjustment import get_next_sub_slot_iters_and_difficulty
-from replaceme.consensus.make_sub_epoch_summary import make_sub_epoch_summary
-from replaceme.consensus.pot_iterations import is_overflow_block
-from replaceme.types.blockchain_format.classgroup import ClassgroupElement
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.blockchain_format.slots import ChallengeBlockInfo
-from replaceme.types.blockchain_format.sub_epoch_summary import SubEpochSummary
-from replaceme.types.full_block import FullBlock
-from replaceme.types.header_block import HeaderBlock
-from replaceme.util.ints import uint8, uint32, uint64
+from goji.consensus.block_record import BlockRecord
+from goji.consensus.blockchain_interface import BlockchainInterface
+from goji.consensus.constants import ConsensusConstants
+from goji.consensus.deficit import calculate_deficit
+from goji.consensus.difficulty_adjustment import get_next_sub_slot_iters_and_difficulty
+from goji.consensus.make_sub_epoch_summary import make_sub_epoch_summary
+from goji.consensus.pot_iterations import is_overflow_block
+from goji.types.blockchain_format.classgroup import ClassgroupElement
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.blockchain_format.slots import ChallengeBlockInfo
+from goji.types.blockchain_format.sub_epoch_summary import SubEpochSummary
+from goji.types.full_block import FullBlock
+from goji.types.header_block import HeaderBlock
+from goji.util.ints import uint8, uint32, uint64
 
 
 def block_to_block_record(

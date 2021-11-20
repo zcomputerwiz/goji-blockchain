@@ -12,56 +12,56 @@ from blspy import AugSchemeMPL, G1Element, PrivateKey
 from chiabip158 import PyBIP158
 from cryptography.fernet import Fernet
 
-from replaceme import __version__
-from replaceme.consensus.block_record import BlockRecord
-from replaceme.consensus.coinbase import pool_parent_id, farmer_parent_id
-from replaceme.consensus.constants import ConsensusConstants
-from replaceme.consensus.find_fork_point import find_fork_point_in_chain
-from replaceme.full_node.weight_proof import WeightProofHandler
-from replaceme.pools.pool_puzzles import SINGLETON_LAUNCHER_HASH, solution_to_pool_state
-from replaceme.pools.pool_wallet import PoolWallet
-from replaceme.protocols.wallet_protocol import PuzzleSolutionResponse, RespondPuzzleSolution
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.blockchain_format.program import Program
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.coin_spend import CoinSpend
-from replaceme.types.full_block import FullBlock
-from replaceme.types.header_block import HeaderBlock
-from replaceme.types.mempool_inclusion_status import MempoolInclusionStatus
-from replaceme.util.byte_types import hexstr_to_bytes
-from replaceme.util.db_wrapper import DBWrapper
-from replaceme.util.errors import Err
-from replaceme.util.hash import std_hash
-from replaceme.util.ints import uint32, uint64, uint128
-from replaceme.util.db_synchronous import db_synchronous_on
-from replaceme.wallet.block_record import HeaderBlockRecord
-from replaceme.wallet.cc_wallet.cc_wallet import CCWallet
-from replaceme.wallet.derivation_record import DerivationRecord
-from replaceme.wallet.derive_keys import master_sk_to_backup_sk, master_sk_to_wallet_sk
-from replaceme.wallet.key_val_store import KeyValStore
-from replaceme.wallet.rl_wallet.rl_wallet import RLWallet
-from replaceme.wallet.settings.user_settings import UserSettings
-from replaceme.wallet.trade_manager import TradeManager
-from replaceme.wallet.transaction_record import TransactionRecord
-from replaceme.wallet.util.backup_utils import open_backup_file
-from replaceme.wallet.util.transaction_type import TransactionType
-from replaceme.wallet.util.wallet_types import WalletType
-from replaceme.wallet.wallet import Wallet
-from replaceme.wallet.wallet_action import WalletAction
-from replaceme.wallet.wallet_action_store import WalletActionStore
-from replaceme.wallet.wallet_block_store import WalletBlockStore
-from replaceme.wallet.wallet_blockchain import WalletBlockchain
-from replaceme.wallet.wallet_coin_record import WalletCoinRecord
-from replaceme.wallet.wallet_coin_store import WalletCoinStore
-from replaceme.wallet.wallet_info import WalletInfo, WalletInfoBackup
-from replaceme.wallet.wallet_interested_store import WalletInterestedStore
-from replaceme.wallet.wallet_pool_store import WalletPoolStore
-from replaceme.wallet.wallet_puzzle_store import WalletPuzzleStore
-from replaceme.wallet.wallet_sync_store import WalletSyncStore
-from replaceme.wallet.wallet_transaction_store import WalletTransactionStore
-from replaceme.wallet.wallet_user_store import WalletUserStore
-from replaceme.server.server import ReplacemeServer
-from replaceme.wallet.did_wallet.did_wallet import DIDWallet
+from goji import __version__
+from goji.consensus.block_record import BlockRecord
+from goji.consensus.coinbase import pool_parent_id, farmer_parent_id
+from goji.consensus.constants import ConsensusConstants
+from goji.consensus.find_fork_point import find_fork_point_in_chain
+from goji.full_node.weight_proof import WeightProofHandler
+from goji.pools.pool_puzzles import SINGLETON_LAUNCHER_HASH, solution_to_pool_state
+from goji.pools.pool_wallet import PoolWallet
+from goji.protocols.wallet_protocol import PuzzleSolutionResponse, RespondPuzzleSolution
+from goji.types.blockchain_format.coin import Coin
+from goji.types.blockchain_format.program import Program
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.coin_spend import CoinSpend
+from goji.types.full_block import FullBlock
+from goji.types.header_block import HeaderBlock
+from goji.types.mempool_inclusion_status import MempoolInclusionStatus
+from goji.util.byte_types import hexstr_to_bytes
+from goji.util.db_wrapper import DBWrapper
+from goji.util.errors import Err
+from goji.util.hash import std_hash
+from goji.util.ints import uint32, uint64, uint128
+from goji.util.db_synchronous import db_synchronous_on
+from goji.wallet.block_record import HeaderBlockRecord
+from goji.wallet.cc_wallet.cc_wallet import CCWallet
+from goji.wallet.derivation_record import DerivationRecord
+from goji.wallet.derive_keys import master_sk_to_backup_sk, master_sk_to_wallet_sk
+from goji.wallet.key_val_store import KeyValStore
+from goji.wallet.rl_wallet.rl_wallet import RLWallet
+from goji.wallet.settings.user_settings import UserSettings
+from goji.wallet.trade_manager import TradeManager
+from goji.wallet.transaction_record import TransactionRecord
+from goji.wallet.util.backup_utils import open_backup_file
+from goji.wallet.util.transaction_type import TransactionType
+from goji.wallet.util.wallet_types import WalletType
+from goji.wallet.wallet import Wallet
+from goji.wallet.wallet_action import WalletAction
+from goji.wallet.wallet_action_store import WalletActionStore
+from goji.wallet.wallet_block_store import WalletBlockStore
+from goji.wallet.wallet_blockchain import WalletBlockchain
+from goji.wallet.wallet_coin_record import WalletCoinRecord
+from goji.wallet.wallet_coin_store import WalletCoinStore
+from goji.wallet.wallet_info import WalletInfo, WalletInfoBackup
+from goji.wallet.wallet_interested_store import WalletInterestedStore
+from goji.wallet.wallet_pool_store import WalletPoolStore
+from goji.wallet.wallet_puzzle_store import WalletPuzzleStore
+from goji.wallet.wallet_sync_store import WalletSyncStore
+from goji.wallet.wallet_transaction_store import WalletTransactionStore
+from goji.wallet.wallet_user_store import WalletUserStore
+from goji.server.server import GojiServer
+from goji.wallet.did_wallet.did_wallet import DIDWallet
 
 
 def get_balance_from_coin_records(coin_records: Set[WalletCoinRecord]) -> uint128:
@@ -115,7 +115,7 @@ class WalletStateManager:
     interested_store: WalletInterestedStore
     pool_store: WalletPoolStore
     weight_proof_handler: Any
-    server: ReplacemeServer
+    server: GojiServer
     root_path: Path
 
     @staticmethod
@@ -124,7 +124,7 @@ class WalletStateManager:
         config: Dict,
         db_path: Path,
         constants: ConsensusConstants,
-        server: ReplacemeServer,
+        server: GojiServer,
         root_path: Path,
         name: str = None,
     ):

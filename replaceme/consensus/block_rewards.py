@@ -1,7 +1,7 @@
-from replaceme.util.ints import uint32, uint64
+from goji.util.ints import uint32, uint64
 
-# 1 Replaceme coin = 1,000,000,000,000 = 1 trillion mojo.
-_mojo_per_replaceme = 1000000000000
+# 1 Goji coin = 1,000,000,000,000 = 1 trillion moji.
+_moji_per_goji = 1000000000000
 _blocks_per_year = 1681920  # 32 * 6 * 24 * 365
 
 
@@ -15,17 +15,17 @@ def calculate_pool_reward(height: uint32) -> uint64:
     """
 
     if height == 0:
-        return uint64(int((7 / 8) * 21000000 * _mojo_per_replaceme))
+        return uint64(int((7 / 8) * 21000000 * _moji_per_goji))
     elif height < 3 * _blocks_per_year:
-        return uint64(int((7 / 8) * 2 * _mojo_per_replaceme))
+        return uint64(int((7 / 8) * 2 * _moji_per_goji))
     elif height < 6 * _blocks_per_year:
-        return uint64(int((7 / 8) * 1 * _mojo_per_replaceme))
+        return uint64(int((7 / 8) * 1 * _moji_per_goji))
     elif height < 9 * _blocks_per_year:
-        return uint64(int((7 / 8) * 0.5 * _mojo_per_replaceme))
+        return uint64(int((7 / 8) * 0.5 * _moji_per_goji))
     elif height < 12 * _blocks_per_year:
-        return uint64(int((7 / 8) * 0.25 * _mojo_per_replaceme))
+        return uint64(int((7 / 8) * 0.25 * _moji_per_goji))
     else:
-        return uint64(int((7 / 8) * 0.125 * _mojo_per_replaceme))
+        return uint64(int((7 / 8) * 0.125 * _moji_per_goji))
 
 
 def calculate_base_farmer_reward(height: uint32) -> uint64:
@@ -38,14 +38,14 @@ def calculate_base_farmer_reward(height: uint32) -> uint64:
     rates increase continuously.
     """
     if height == 0:
-        return uint64(int((1 / 8) * 21000000 * _mojo_per_replaceme))
+        return uint64(int((1 / 8) * 21000000 * _moji_per_goji))
     elif height < 3 * _blocks_per_year:
-        return uint64(int((1 / 8) * 2 * _mojo_per_replaceme))
+        return uint64(int((1 / 8) * 2 * _moji_per_goji))
     elif height < 6 * _blocks_per_year:
-        return uint64(int((1 / 8) * 1 * _mojo_per_replaceme))
+        return uint64(int((1 / 8) * 1 * _moji_per_goji))
     elif height < 9 * _blocks_per_year:
-        return uint64(int((1 / 8) * 0.5 * _mojo_per_replaceme))
+        return uint64(int((1 / 8) * 0.5 * _moji_per_goji))
     elif height < 12 * _blocks_per_year:
-        return uint64(int((1 / 8) * 0.25 * _mojo_per_replaceme))
+        return uint64(int((1 / 8) * 0.25 * _moji_per_goji))
     else:
-        return uint64(int((1 / 8) * 0.125 * _mojo_per_replaceme))
+        return uint64(int((1 / 8) * 0.125 * _moji_per_goji))

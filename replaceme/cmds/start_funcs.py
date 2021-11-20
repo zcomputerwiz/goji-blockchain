@@ -6,17 +6,17 @@ import sys
 from pathlib import Path
 from typing import Optional
 
-from replaceme.cmds.passphrase_funcs import get_current_passphrase
-from replaceme.daemon.client import DaemonProxy, connect_to_daemon_and_validate
-from replaceme.util.keychain import Keychain, KeyringMaxUnlockAttempts
-from replaceme.util.service_groups import services_for_groups
+from goji.cmds.passphrase_funcs import get_current_passphrase
+from goji.daemon.client import DaemonProxy, connect_to_daemon_and_validate
+from goji.util.keychain import Keychain, KeyringMaxUnlockAttempts
+from goji.util.service_groups import services_for_groups
 
 
 def launch_start_daemon(root_path: Path) -> subprocess.Popen:
-    os.environ["REPLACEME_ROOT"] = str(root_path)
+    os.environ["GOJI_ROOT"] = str(root_path)
     # TODO: use startupinfo=subprocess.DETACHED_PROCESS on windows
-    replaceme = sys.argv[0]
-    process = subprocess.Popen(f"{replaceme} run_daemon --wait-for-unlock".split(), stdout=subprocess.PIPE)
+    goji = sys.argv[0]
+    process = subprocess.Popen(f"{goji} run_daemon --wait-for-unlock".split(), stdout=subprocess.PIPE)
     return process
 
 
@@ -55,7 +55,7 @@ async def async_start(root_path: Path, group: str, restart: bool) -> None:
         return None
 
     if daemon is None:
-        print("Failed to create the replaceme daemon")
+        print("Failed to create the goji daemon")
         return None
 
     for service in services_for_groups(group):

@@ -1,14 +1,14 @@
 from typing import List, Tuple, Optional
 
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.blockchain_format.program import Program
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.condition_opcodes import ConditionOpcode
-from replaceme.types.coin_spend import CoinSpend
-from replaceme.wallet.puzzles.load_clvm import load_clvm
-from replaceme.wallet.lineage_proof import LineageProof
-from replaceme.util.ints import uint64
-from replaceme.util.hash import std_hash
+from goji.types.blockchain_format.coin import Coin
+from goji.types.blockchain_format.program import Program
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.condition_opcodes import ConditionOpcode
+from goji.types.coin_spend import CoinSpend
+from goji.wallet.puzzles.load_clvm import load_clvm
+from goji.wallet.lineage_proof import LineageProof
+from goji.util.ints import uint64
+from goji.util.hash import std_hash
 
 SINGLETON_MOD = load_clvm("singleton_top_layer.clvm")
 SINGLETON_MOD_HASH = SINGLETON_MOD.get_tree_hash()
@@ -39,7 +39,7 @@ def launch_conditions_and_coinsol(
     amount: uint64,
 ) -> Tuple[List[Program], CoinSpend]:
     if (amount % 2) == 0:
-        raise ValueError("Coin amount cannot be even. Subtract one mojo.")
+        raise ValueError("Coin amount cannot be even. Subtract one moji.")
 
     launcher_coin: Coin = generate_launcher_coin(coin, amount)
     curried_singleton: Program = SINGLETON_MOD.curry(

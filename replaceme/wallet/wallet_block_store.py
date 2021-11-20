@@ -3,16 +3,16 @@ from typing import Dict, List, Optional, Tuple
 
 import aiosqlite
 
-from replaceme.consensus.block_record import BlockRecord
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.blockchain_format.sub_epoch_summary import SubEpochSummary
-from replaceme.types.coin_spend import CoinSpend
-from replaceme.types.header_block import HeaderBlock
-from replaceme.util.db_wrapper import DBWrapper
-from replaceme.util.ints import uint32, uint64
-from replaceme.util.lru_cache import LRUCache
-from replaceme.util.streamable import Streamable, streamable
-from replaceme.wallet.block_record import HeaderBlockRecord
+from goji.consensus.block_record import BlockRecord
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.blockchain_format.sub_epoch_summary import SubEpochSummary
+from goji.types.coin_spend import CoinSpend
+from goji.types.header_block import HeaderBlock
+from goji.util.db_wrapper import DBWrapper
+from goji.util.ints import uint32, uint64
+from goji.util.lru_cache import LRUCache
+from goji.util.streamable import Streamable, streamable
+from goji.wallet.block_record import HeaderBlockRecord
 
 
 @dataclass(frozen=True)

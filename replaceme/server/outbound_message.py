@@ -2,9 +2,9 @@ from dataclasses import dataclass
 from enum import IntEnum
 from typing import Any, Optional
 
-from replaceme.protocols.protocol_message_types import ProtocolMessageTypes
-from replaceme.util.ints import uint8, uint16
-from replaceme.util.streamable import Streamable, streamable
+from goji.protocols.protocol_message_types import ProtocolMessageTypes
+from goji.util.ints import uint8, uint16
+from goji.util.streamable import Streamable, streamable
 
 
 class NodeType(IntEnum):

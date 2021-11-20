@@ -1,14 +1,14 @@
 from dataclasses import dataclass
 from typing import List, Optional, Tuple
 
-from replaceme.types.blockchain_format.foliage import Foliage
-from replaceme.types.blockchain_format.reward_chain_block import RewardChainBlock, RewardChainBlockUnfinished
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.blockchain_format.sub_epoch_summary import SubEpochSummary
-from replaceme.types.blockchain_format.vdf import VDFInfo, VDFProof
-from replaceme.types.end_of_slot_bundle import EndOfSubSlotBundle
-from replaceme.util.ints import uint8, uint32, uint64, uint128
-from replaceme.util.streamable import Streamable, streamable
+from goji.types.blockchain_format.foliage import Foliage
+from goji.types.blockchain_format.reward_chain_block import RewardChainBlock, RewardChainBlockUnfinished
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.blockchain_format.sub_epoch_summary import SubEpochSummary
+from goji.types.blockchain_format.vdf import VDFInfo, VDFProof
+from goji.types.end_of_slot_bundle import EndOfSubSlotBundle
+from goji.util.ints import uint8, uint32, uint64, uint128
+from goji.util.streamable import Streamable, streamable
 
 """
 Protocol between timelord and full node.

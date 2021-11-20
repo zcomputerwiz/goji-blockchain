@@ -5,10 +5,10 @@ from typing import Optional
 
 from blspy import G1Element, G2Element
 
-from replaceme.types.blockchain_format.proof_of_space import ProofOfSpace
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.util.ints import uint8, uint16, uint32, uint64
-from replaceme.util.streamable import Streamable, streamable
+from goji.types.blockchain_format.proof_of_space import ProofOfSpace
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.util.ints import uint8, uint16, uint32, uint64
+from goji.util.streamable import Streamable, streamable
 
 POOL_PROTOCOL_VERSION = uint8(1)
 

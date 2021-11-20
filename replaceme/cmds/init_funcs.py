@@ -5,27 +5,27 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import yaml
 
-from replaceme import __version__
-from replaceme.consensus.coinbase import create_puzzlehash_for_pk
-from replaceme.ssl.create_ssl import (
+from goji import __version__
+from goji.consensus.coinbase import create_puzzlehash_for_pk
+from goji.ssl.create_ssl import (
     ensure_ssl_dirs,
     generate_ca_signed_cert,
-    get_replaceme_ca_crt_key,
+    get_goji_ca_crt_key,
     make_ca_cert,
     write_ssl_cert_and_key,
 )
-from replaceme.util.bech32m import encode_puzzle_hash
-from replaceme.util.config import (
-    create_default_replaceme_config,
+from goji.util.bech32m import encode_puzzle_hash
+from goji.util.config import (
+    create_default_goji_config,
     initial_config_file,
     load_config,
     save_config,
     unflatten_properties,
 )
-from replaceme.util.ints import uint32
-from replaceme.util.keychain import Keychain
-from replaceme.util.path import mkdir
-from replaceme.util.ssl_check import (
+from goji.util.ints import uint32
+from goji.util.keychain import Keychain
+from goji.util.path import mkdir
+from goji.util.ssl_check import (
     DEFAULT_PERMISSIONS_CERT_FILE,
     DEFAULT_PERMISSIONS_KEY_FILE,
     RESTRICT_MASK_CERT_FILE,
@@ -33,8 +33,8 @@ from replaceme.util.ssl_check import (
     check_and_fix_permissions_for_ssl_file,
     fix_ssl,
 )
-from replaceme.wallet.derive_keys import master_sk_to_pool_sk, master_sk_to_wallet_sk
-from replaceme.cmds.configure import configure
+from goji.wallet.derive_keys import master_sk_to_pool_sk, master_sk_to_wallet_sk
+from goji.cmds.configure import configure
 
 private_node_names = {"full_node", "wallet", "farmer", "harvester", "timelord", "daemon"}
 public_node_names = {"full_node", "wallet", "farmer", "introducer", "timelord"}
@@ -66,14 +66,14 @@ def check_keys(new_root: Path, keychain: Optional[Keychain] = None) -> None:
         keychain = Keychain()
     all_sks = keychain.get_all_private_keys()
     if len(all_sks) == 0:
-        print("No keys are present in the keychain. Generate them with 'replaceme keys generate'")
+        print("No keys are present in the keychain. Generate them with 'goji keys generate'")
         return None
 
     config: Dict = load_config(new_root, "config.yaml")
     pool_child_pubkeys = [master_sk_to_pool_sk(sk).get_g1() for sk, _ in all_sks]
     all_targets = []
-    stop_searching_for_farmer = "xch_target_address" not in config["farmer"]
-    stop_searching_for_pool = "xch_target_address" not in config["pool"]
+    stop_searching_for_farmer = "xgj_target_address" not in config["farmer"]
+    stop_searching_for_pool = "xgj_target_address" not in config["pool"]
     number_of_ph_to_search = 500
     selected = config["selected_network"]
     prefix = config["network_overrides"]["config"][selected]["address_prefix"]
@@ -84,41 +84,41 @@ def check_keys(new_root: Path, keychain: Optional[Keychain] = None) -> None:
             all_targets.append(
                 encode_puzzle_hash(create_puzzlehash_for_pk(master_sk_to_wallet_sk(sk, uint32(i)).get_g1()), prefix)
             )
-            if all_targets[-1] == config["farmer"].get("xch_target_address"):
+            if all_targets[-1] == config["farmer"].get("xgj_target_address"):
                 stop_searching_for_farmer = True
-            if all_targets[-1] == config["pool"].get("xch_target_address"):
+            if all_targets[-1] == config["pool"].get("xgj_target_address"):
                 stop_searching_for_pool = True
 
     # Set the destinations, if necessary
     updated_target: bool = False
-    if "xch_target_address" not in config["farmer"]:
+    if "xgj_target_address" not in config["farmer"]:
         print(
-            f"Setting the xch destination for the farmer reward (1/8 plus fees, solo and pooling) to {all_targets[0]}"
+            f"Setting the xgj destination for the farmer reward (1/8 plus fees, solo and pooling) to {all_targets[0]}"
         )
-        config["farmer"]["xch_target_address"] = all_targets[0]
+        config["farmer"]["xgj_target_address"] = all_targets[0]
         updated_target = True
-    elif config["farmer"]["xch_target_address"] not in all_targets:
+    elif config["farmer"]["xgj_target_address"] not in all_targets:
         print(
             f"WARNING: using a farmer address which we don't have the private"
             f" keys for. We searched the first {number_of_ph_to_search} addresses. Consider overriding "
-            f"{config['farmer']['xch_target_address']} with {all_targets[0]}"
+            f"{config['farmer']['xgj_target_address']} with {all_targets[0]}"
         )
 
     if "pool" not in config:
         config["pool"] = {}
-    if "xch_target_address" not in config["pool"]:
-        print(f"Setting the xch destination address for pool reward (7/8 for solo only) to {all_targets[0]}")
-        config["pool"]["xch_target_address"] = all_targets[0]
+    if "xgj_target_address" not in config["pool"]:
+        print(f"Setting the xgj destination address for pool reward (7/8 for solo only) to {all_targets[0]}")
+        config["pool"]["xgj_target_address"] = all_targets[0]
         updated_target = True
-    elif config["pool"]["xch_target_address"] not in all_targets:
+    elif config["pool"]["xgj_target_address"] not in all_targets:
         print(
             f"WARNING: using a pool address which we don't have the private"
             f" keys for. We searched the first {number_of_ph_to_search} addresses. Consider overriding "
-            f"{config['pool']['xch_target_address']} with {all_targets[0]}"
+            f"{config['pool']['xgj_target_address']} with {all_targets[0]}"
         )
     if updated_target:
         print(
-            f"To change the XCH destination addresses, edit the `xch_target_address` entries in"
+            f"To change the XGJ destination addresses, edit the `xgj_target_address` entries in"
             f" {(new_root / 'config' / 'config.yaml').absolute()}."
         )
 
@@ -199,10 +199,10 @@ def create_all_ssl(root_path: Path):
 
     private_ca_key_path = ca_dir / "private_ca.key"
     private_ca_crt_path = ca_dir / "private_ca.crt"
-    replaceme_ca_crt, replaceme_ca_key = get_replaceme_ca_crt_key()
-    replaceme_ca_crt_path = ca_dir / "replaceme_ca.crt"
-    replaceme_ca_key_path = ca_dir / "replaceme_ca.key"
-    write_ssl_cert_and_key(replaceme_ca_crt_path, replaceme_ca_crt, replaceme_ca_key_path, replaceme_ca_key)
+    goji_ca_crt, goji_ca_key = get_goji_ca_crt_key()
+    goji_ca_crt_path = ca_dir / "goji_ca.crt"
+    goji_ca_key_path = ca_dir / "goji_ca.key"
+    write_ssl_cert_and_key(goji_ca_crt_path, goji_ca_crt, goji_ca_key_path, goji_ca_key)
 
     if not private_ca_key_path.exists() or not private_ca_crt_path.exists():
         # Create private CA
@@ -219,8 +219,8 @@ def create_all_ssl(root_path: Path):
         ca_crt = private_ca_crt_path.read_bytes()
         generate_ssl_for_nodes(ssl_dir, ca_crt, ca_key, True)
 
-    replaceme_ca_crt, replaceme_ca_key = get_replaceme_ca_crt_key()
-    generate_ssl_for_nodes(ssl_dir, replaceme_ca_crt, replaceme_ca_key, False, overwrite=False)
+    goji_ca_crt, goji_ca_key = get_goji_ca_crt_key()
+    generate_ssl_for_nodes(ssl_dir, goji_ca_crt, goji_ca_key, False, overwrite=False)
 
 
 def generate_ssl_for_nodes(ssl_dir: Path, ca_crt: bytes, ca_key: bytes, private: bool, overwrite=True):
@@ -272,7 +272,7 @@ def init(create_certs: Optional[Path], root_path: Path, fix_ssl_permissions: boo
             print(f"** {root_path} does not exist. Executing core init **")
             # sanity check here to prevent infinite recursion
             if (
-                replaceme_init(root_path, fix_ssl_permissions=fix_ssl_permissions, testnet=testnet) == 0
+                goji_init(root_path, fix_ssl_permissions=fix_ssl_permissions, testnet=testnet) == 0
                 and root_path.exists()
             ):
                 return init(create_certs, root_path, fix_ssl_permissions)
@@ -280,10 +280,10 @@ def init(create_certs: Optional[Path], root_path: Path, fix_ssl_permissions: boo
             print(f"** {root_path} was not created. Exiting **")
             return -1
     else:
-        return replaceme_init(root_path, fix_ssl_permissions=fix_ssl_permissions, testnet=testnet)
+        return goji_init(root_path, fix_ssl_permissions=fix_ssl_permissions, testnet=testnet)
 
 
-def replaceme_version_number() -> Tuple[str, str, str, str]:
+def goji_version_number() -> Tuple[str, str, str, str]:
     scm_full_version = __version__
     left_full_version = scm_full_version.split("+")
 
@@ -331,18 +331,18 @@ def replaceme_version_number() -> Tuple[str, str, str, str]:
     return major_release_number, minor_release_number, patch_release_number, dev_release_number
 
 
-def replaceme_minor_release_number():
-    res = int(replaceme_version_number()[2])
+def goji_minor_release_number():
+    res = int(goji_version_number()[2])
     print(f"Install release number: {res}")
     return res
 
 
-def replaceme_full_version_str() -> str:
-    major, minor, patch, dev = replaceme_version_number()
+def goji_full_version_str() -> str:
+    major, minor, patch, dev = goji_version_number()
     return f"{major}.{minor}.{patch}{dev}"
 
 
-def replaceme_init(
+def goji_init(
     root_path: Path, *, should_check_keys: bool = True, fix_ssl_permissions: bool = False, testnet: bool = False
 ):
     """
@@ -353,16 +353,16 @@ def replaceme_init(
     protected Keychain. When launching the daemon from the GUI, we want the GUI to
     handle unlocking the keychain.
     """
-    if os.environ.get("REPLACEME_ROOT", None) is not None:
+    if os.environ.get("GOJI_ROOT", None) is not None:
         print(
-            f"warning, your REPLACEME_ROOT is set to {os.environ['REPLACEME_ROOT']}. "
-            f"Please unset the environment variable and run replaceme init again\n"
+            f"warning, your GOJI_ROOT is set to {os.environ['GOJI_ROOT']}. "
+            f"Please unset the environment variable and run goji init again\n"
             f"or manually migrate config.yaml"
         )
 
-    print(f"Replaceme directory {root_path}")
+    print(f"Goji directory {root_path}")
     if root_path.is_dir() and Path(root_path / "config" / "config.yaml").exists():
-        # This is reached if REPLACEME_ROOT is set, or if user has run replaceme init twice
+        # This is reached if GOJI_ROOT is set, or if user has run goji init twice
         # before a new update.
         if testnet:
             configure(root_path, "", "", "", "", "", "", "", "", testnet="true", peer_connect_timeout="")
@@ -373,7 +373,7 @@ def replaceme_init(
         print(f"{root_path} already exists, no migration action taken")
         return -1
 
-    create_default_replaceme_config(root_path)
+    create_default_goji_config(root_path)
     if testnet:
         configure(root_path, "", "", "", "", "", "", "", "", testnet="true", peer_connect_timeout="")
     create_all_ssl(root_path)
@@ -382,6 +382,6 @@ def replaceme_init(
     if should_check_keys:
         check_keys(root_path)
     print("")
-    print("To see your keys, run 'replaceme keys show --show-mnemonic-seed'")
+    print("To see your keys, run 'goji keys show --show-mnemonic-seed'")
 
     return 0

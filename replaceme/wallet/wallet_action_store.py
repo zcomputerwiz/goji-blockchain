@@ -2,10 +2,10 @@ from typing import List, Optional
 
 import aiosqlite
 
-from replaceme.util.db_wrapper import DBWrapper
-from replaceme.util.ints import uint32
-from replaceme.wallet.util.wallet_types import WalletType
-from replaceme.wallet.wallet_action import WalletAction
+from goji.util.db_wrapper import DBWrapper
+from goji.util.ints import uint32
+from goji.wallet.util.wallet_types import WalletType
+from goji.wallet.wallet_action import WalletAction
 
 
 class WalletActionStore:

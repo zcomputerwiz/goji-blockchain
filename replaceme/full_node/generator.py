@@ -1,19 +1,19 @@
 import logging
 from typing import List, Optional, Union, Tuple
-from replaceme.types.blockchain_format.program import Program, SerializedProgram
-from replaceme.types.generator_types import BlockGenerator, GeneratorArg, GeneratorBlockCacheInterface, CompressorArg
-from replaceme.util.ints import uint32, uint64
-from replaceme.wallet.puzzles.load_clvm import load_clvm
-from replaceme.wallet.puzzles.rom_bootstrap_generator import get_generator
+from goji.types.blockchain_format.program import Program, SerializedProgram
+from goji.types.generator_types import BlockGenerator, GeneratorArg, GeneratorBlockCacheInterface, CompressorArg
+from goji.util.ints import uint32, uint64
+from goji.wallet.puzzles.load_clvm import load_clvm
+from goji.wallet.puzzles.rom_bootstrap_generator import get_generator
 
 GENERATOR_MOD = get_generator()
 
-DECOMPRESS_BLOCK = load_clvm("block_program_zero.clvm", package_or_requirement="replaceme.wallet.puzzles")
-DECOMPRESS_PUZZLE = load_clvm("decompress_puzzle.clvm", package_or_requirement="replaceme.wallet.puzzles")
-# DECOMPRESS_CSE = load_clvm("decompress_coin_spend_entry.clvm", package_or_requirement="replaceme.wallet.puzzles")
+DECOMPRESS_BLOCK = load_clvm("block_program_zero.clvm", package_or_requirement="goji.wallet.puzzles")
+DECOMPRESS_PUZZLE = load_clvm("decompress_puzzle.clvm", package_or_requirement="goji.wallet.puzzles")
+# DECOMPRESS_CSE = load_clvm("decompress_coin_spend_entry.clvm", package_or_requirement="goji.wallet.puzzles")
 
 DECOMPRESS_CSE_WITH_PREFIX = load_clvm(
-    "decompress_coin_spend_entry_with_prefix.clvm", package_or_requirement="replaceme.wallet.puzzles"
+    "decompress_coin_spend_entry_with_prefix.clvm", package_or_requirement="goji.wallet.puzzles"
 )
 log = logging.getLogger(__name__)
 

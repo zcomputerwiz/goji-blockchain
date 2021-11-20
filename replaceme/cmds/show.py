@@ -19,16 +19,16 @@ async def show_async(
 
     from time import localtime, struct_time
     from typing import List, Optional
-    from replaceme.consensus.block_record import BlockRecord
-    from replaceme.rpc.full_node_rpc_client import FullNodeRpcClient
-    from replaceme.server.outbound_message import NodeType
-    from replaceme.types.full_block import FullBlock
-    from replaceme.util.bech32m import encode_puzzle_hash
-    from replaceme.util.byte_types import hexstr_to_bytes
-    from replaceme.util.config import load_config
-    from replaceme.util.default_root import DEFAULT_ROOT_PATH
-    from replaceme.util.ints import uint16
-    from replaceme.util.misc import format_bytes
+    from goji.consensus.block_record import BlockRecord
+    from goji.rpc.full_node_rpc_client import FullNodeRpcClient
+    from goji.server.outbound_message import NodeType
+    from goji.types.full_block import FullBlock
+    from goji.util.bech32m import encode_puzzle_hash
+    from goji.util.byte_types import hexstr_to_bytes
+    from goji.util.config import load_config
+    from goji.util.default_root import DEFAULT_ROOT_PATH
+    from goji.util.ints import uint16
+    from goji.util.misc import format_bytes
 
     try:
         config = load_config(DEFAULT_ROOT_PATH, "config.yaml")
@@ -62,7 +62,7 @@ async def show_async(
                 print(f"Current Blockchain Status: Not Synced. Peak height: {peak.height}")
             else:
                 print("\nSearching for an initial chain\n")
-                print("You may be able to expedite with 'replaceme show -a host:port' using a known node.\n")
+                print("You may be able to expedite with 'goji show -a host:port' using a known node.\n")
 
             if peak is not None:
                 if peak.is_transaction_block:

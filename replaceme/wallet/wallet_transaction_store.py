@@ -3,13 +3,13 @@ from typing import Dict, List, Optional, Tuple
 
 import aiosqlite
 
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.mempool_inclusion_status import MempoolInclusionStatus
-from replaceme.util.db_wrapper import DBWrapper
-from replaceme.util.errors import Err
-from replaceme.util.ints import uint8, uint32
-from replaceme.wallet.transaction_record import TransactionRecord
-from replaceme.wallet.util.transaction_type import TransactionType
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.mempool_inclusion_status import MempoolInclusionStatus
+from goji.util.db_wrapper import DBWrapper
+from goji.util.errors import Err
+from goji.util.ints import uint8, uint32
+from goji.wallet.transaction_record import TransactionRecord
+from goji.wallet.util.transaction_type import TransactionType
 
 
 class WalletTransactionStore:

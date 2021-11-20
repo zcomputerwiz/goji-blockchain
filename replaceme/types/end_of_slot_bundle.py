@@ -1,13 +1,13 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from replaceme.types.blockchain_format.slots import (
+from goji.types.blockchain_format.slots import (
     ChallengeChainSubSlot,
     InfusedChallengeChainSubSlot,
     RewardChainSubSlot,
     SubSlotProofs,
 )
-from replaceme.util.streamable import Streamable, streamable
+from goji.util.streamable import Streamable, streamable
 
 
 @dataclass(frozen=True)

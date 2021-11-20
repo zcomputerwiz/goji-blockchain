@@ -4,17 +4,17 @@ from typing import List, Tuple, Optional
 
 from blspy import AugSchemeMPL, G1Element, G2Element, PrivateKey
 
-from replaceme.types.blockchain_format.program import Program
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.coin_spend import CoinSpend
-from replaceme.types.spend_bundle import SpendBundle
-from replaceme.util.errors import Err
-from replaceme.util.condition_tools import ConditionOpcode
-from replaceme.util.ints import uint64
-from replaceme.consensus.default_constants import DEFAULT_CONSTANTS
-from replaceme.wallet.lineage_proof import LineageProof
-from replaceme.wallet.puzzles import (
+from goji.types.blockchain_format.program import Program
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.blockchain_format.coin import Coin
+from goji.types.coin_spend import CoinSpend
+from goji.types.spend_bundle import SpendBundle
+from goji.util.errors import Err
+from goji.util.condition_tools import ConditionOpcode
+from goji.util.ints import uint64
+from goji.consensus.default_constants import DEFAULT_CONSTANTS
+from goji.wallet.lineage_proof import LineageProof
+from goji.wallet.puzzles import (
     p2_conditions,
     p2_delegated_puzzle_or_hidden_puzzle,
     singleton_top_layer,
@@ -25,14 +25,14 @@ from tests.clvm.test_puzzles import (
     secret_exponent_for_index,
 )
 
-from replaceme.clvm.spend_sim import SpendSim, SimClient
+from goji.clvm.spend_sim import SpendSim, SimClient
 
 """
 This test suite aims to test:
-    - replaceme.wallet.puzzles.singleton_top_layer.py
-    - replaceme.wallet.puzzles.singleton_top_layer.clvm
-    - replaceme.wallet.puzzles.p2_singleton.clvm
-    - replaceme.wallet.puzzles.p2_singleton_or_delayed_puzhash.clvm
+    - goji.wallet.puzzles.singleton_top_layer.py
+    - goji.wallet.puzzles.singleton_top_layer.clvm
+    - goji.wallet.puzzles.p2_singleton.clvm
+    - goji.wallet.puzzles.p2_singleton_or_delayed_puzhash.clvm
 """
 
 
@@ -110,7 +110,7 @@ class TestSingleton:
                 )
                 raise AssertionError("This should fail due to an even amount")
             except ValueError as msg:
-                assert str(msg) == "Coin amount cannot be even. Subtract one mojo."
+                assert str(msg) == "Coin amount cannot be even. Subtract one moji."
                 conditions, launcher_coinsol = singleton_top_layer.launch_conditions_and_coinsol(  # noqa
                     starting_coin, adapted_puzzle, comment, START_AMOUNT
                 )

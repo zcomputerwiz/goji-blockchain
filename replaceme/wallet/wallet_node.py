@@ -8,11 +8,11 @@ from pathlib import Path
 from typing import Callable, Dict, List, Optional, Set, Tuple, Union
 
 from blspy import PrivateKey
-from replaceme.consensus.block_record import BlockRecord
-from replaceme.consensus.blockchain_interface import BlockchainInterface
-from replaceme.consensus.constants import ConsensusConstants
-from replaceme.consensus.multiprocess_validation import PreValidationResult
-from replaceme.daemon.keychain_proxy import (
+from goji.consensus.block_record import BlockRecord
+from goji.consensus.blockchain_interface import BlockchainInterface
+from goji.consensus.constants import ConsensusConstants
+from goji.consensus.multiprocess_validation import PreValidationResult
+from goji.daemon.keychain_proxy import (
     KeychainProxy,
     KeychainProxyConnectionFailure,
     KeyringIsEmpty,
@@ -20,11 +20,11 @@ from replaceme.daemon.keychain_proxy import (
     connect_to_keychain_and_validate,
     wrap_local_keychain,
 )
-from replaceme.pools.pool_puzzles import SINGLETON_LAUNCHER_HASH
-from replaceme.protocols import wallet_protocol
-from replaceme.protocols.full_node_protocol import RequestProofOfWeight, RespondProofOfWeight
-from replaceme.protocols.protocol_message_types import ProtocolMessageTypes
-from replaceme.protocols.wallet_protocol import (
+from goji.pools.pool_puzzles import SINGLETON_LAUNCHER_HASH
+from goji.protocols import wallet_protocol
+from goji.protocols.full_node_protocol import RequestProofOfWeight, RespondProofOfWeight
+from goji.protocols.protocol_message_types import ProtocolMessageTypes
+from goji.protocols.wallet_protocol import (
     RejectAdditionsRequest,
     RejectRemovalsRequest,
     RequestAdditions,
@@ -34,34 +34,34 @@ from replaceme.protocols.wallet_protocol import (
     RespondHeaderBlocks,
     RespondRemovals,
 )
-from replaceme.server.node_discovery import WalletPeers
-from replaceme.server.outbound_message import Message, NodeType, make_msg
-from replaceme.server.server import ReplacemeServer
-from replaceme.server.ws_connection import WSReplacemeConnection
-from replaceme.types.blockchain_format.coin import Coin, hash_coin_list
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.coin_spend import CoinSpend
-from replaceme.types.header_block import HeaderBlock
-from replaceme.types.mempool_inclusion_status import MempoolInclusionStatus
-from replaceme.types.peer_info import PeerInfo
-from replaceme.util.byte_types import hexstr_to_bytes
-from replaceme.util.check_fork_next_block import check_fork_next_block
-from replaceme.util.errors import Err, ValidationError
-from replaceme.util.ints import uint32, uint128
-from replaceme.util.keychain import Keychain
-from replaceme.util.lru_cache import LRUCache
-from replaceme.util.merkle_set import MerkleSet, confirm_included_already_hashed, confirm_not_included_already_hashed
-from replaceme.util.path import mkdir, path_from_root
-from replaceme.wallet.block_record import HeaderBlockRecord
-from replaceme.wallet.derivation_record import DerivationRecord
-from replaceme.wallet.settings.settings_objects import BackupInitialized
-from replaceme.wallet.transaction_record import TransactionRecord
-from replaceme.wallet.util.backup_utils import open_backup_file
-from replaceme.wallet.util.wallet_types import WalletType
-from replaceme.wallet.wallet_action import WalletAction
-from replaceme.wallet.wallet_blockchain import ReceiveBlockResult
-from replaceme.wallet.wallet_state_manager import WalletStateManager
-from replaceme.util.profiler import profile_task
+from goji.server.node_discovery import WalletPeers
+from goji.server.outbound_message import Message, NodeType, make_msg
+from goji.server.server import GojiServer
+from goji.server.ws_connection import WSGojiConnection
+from goji.types.blockchain_format.coin import Coin, hash_coin_list
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.coin_spend import CoinSpend
+from goji.types.header_block import HeaderBlock
+from goji.types.mempool_inclusion_status import MempoolInclusionStatus
+from goji.types.peer_info import PeerInfo
+from goji.util.byte_types import hexstr_to_bytes
+from goji.util.check_fork_next_block import check_fork_next_block
+from goji.util.errors import Err, ValidationError
+from goji.util.ints import uint32, uint128
+from goji.util.keychain import Keychain
+from goji.util.lru_cache import LRUCache
+from goji.util.merkle_set import MerkleSet, confirm_included_already_hashed, confirm_not_included_already_hashed
+from goji.util.path import mkdir, path_from_root
+from goji.wallet.block_record import HeaderBlockRecord
+from goji.wallet.derivation_record import DerivationRecord
+from goji.wallet.settings.settings_objects import BackupInitialized
+from goji.wallet.transaction_record import TransactionRecord
+from goji.wallet.util.backup_utils import open_backup_file
+from goji.wallet.util.wallet_types import WalletType
+from goji.wallet.wallet_action import WalletAction
+from goji.wallet.wallet_blockchain import ReceiveBlockResult
+from goji.wallet.wallet_state_manager import WalletStateManager
+from goji.util.profiler import profile_task
 
 
 class WalletNode:
@@ -70,7 +70,7 @@ class WalletNode:
     constants: ConsensusConstants
     keychain_proxy: Optional[KeychainProxy]
     local_keychain: Optional[Keychain]  # For testing only. KeychainProxy is used in normal cases
-    server: Optional[ReplacemeServer]
+    server: Optional[GojiServer]
     log: logging.Logger
     wallet_peers: WalletPeers
     # Maintains the state of the wallet (blockchain and transactions), handles DB connections
@@ -142,7 +142,7 @@ class WalletNode:
             keychain_proxy = await self.ensure_keychain_proxy()
             key = await keychain_proxy.get_key_for_fingerprint(fingerprint)
         except KeyringIsEmpty:
-            self.log.warning("No keys present. Create keys with the UI, or with the 'replaceme keys' program.")
+            self.log.warning("No keys present. Create keys with the UI, or with the 'goji keys' program.")
             return None
         except KeyringIsLocked:
             self.log.warning("Keyring is locked")
@@ -349,7 +349,7 @@ class WalletNode:
 
         return messages
 
-    def set_server(self, server: ReplacemeServer):
+    def set_server(self, server: GojiServer):
         self.server = server
         DNS_SERVERS_EMPTY: list = []
         # TODO: Perhaps use a different set of DNS seeders for wallets, to split the traffic.
@@ -366,7 +366,7 @@ class WalletNode:
             self.log,
         )
 
-    async def on_connect(self, peer: WSReplacemeConnection):
+    async def on_connect(self, peer: WSGojiConnection):
         if self.wallet_state_manager is None or self.backup_initialized is False:
             return None
         messages_peer_ids = await self._messages_to_resend()
@@ -416,7 +416,7 @@ class WalletNode:
                 return True
         return False
 
-    async def complete_blocks(self, header_blocks: List[HeaderBlock], peer: WSReplacemeConnection):
+    async def complete_blocks(self, header_blocks: List[HeaderBlock], peer: WSGojiConnection):
         if self.wallet_state_manager is None:
             return None
         header_block_records: List[HeaderBlockRecord] = []
@@ -466,7 +466,7 @@ class WalletNode:
                 else:
                     self.log.debug(f"Result: {result}")
 
-    async def new_peak_wallet(self, peak: wallet_protocol.NewPeakWallet, peer: WSReplacemeConnection):
+    async def new_peak_wallet(self, peak: wallet_protocol.NewPeakWallet, peer: WSGojiConnection):
         if self.wallet_state_manager is None:
             return
 
@@ -654,7 +654,7 @@ class WalletNode:
             self.log.info("Not performing sync, already caught up.")
             return None
 
-        peers: List[WSReplacemeConnection] = self.server.get_full_node_connections()
+        peers: List[WSGojiConnection] = self.server.get_full_node_connections()
         if len(peers) == 0:
             self.log.info("No peers to sync to")
             return None
@@ -677,7 +677,7 @@ class WalletNode:
 
     async def fetch_blocks_and_validate(
         self,
-        peer: WSReplacemeConnection,
+        peer: WSGojiConnection,
         height_start: uint32,
         height_end: uint32,
         fork_point_with_peak: Optional[uint32],
@@ -934,7 +934,7 @@ class WalletNode:
         return additional_coin_spends
 
     async def get_additions(
-        self, peer: WSReplacemeConnection, block_i, additions: Optional[List[bytes32]], get_all_additions: bool = False
+        self, peer: WSGojiConnection, block_i, additions: Optional[List[bytes32]], get_all_additions: bool = False
     ) -> Optional[List[Coin]]:
         if (additions is not None and len(additions) > 0) or get_all_additions:
             if get_all_additions:
@@ -968,7 +968,7 @@ class WalletNode:
             return []  # No added coins
 
     async def get_removals(
-        self, peer: WSReplacemeConnection, block_i, additions, removals, request_all_removals=False
+        self, peer: WSGojiConnection, block_i, additions, removals, request_all_removals=False
     ) -> Optional[List[Coin]]:
         assert self.wallet_state_manager is not None
         # Check if we need all removals
@@ -1019,7 +1019,7 @@ class WalletNode:
 
 
 async def wallet_next_block_check(
-    peer: WSReplacemeConnection, potential_peek: uint32, blockchain: BlockchainInterface
+    peer: WSGojiConnection, potential_peek: uint32, blockchain: BlockchainInterface
 ) -> bool:
     block_response = await peer.request_header_blocks(
         wallet_protocol.RequestHeaderBlocks(potential_peek, potential_peek)

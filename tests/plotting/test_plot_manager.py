@@ -6,7 +6,7 @@ from typing import Callable, List
 import pytest
 
 from dataclasses import dataclass
-from replaceme.plotting.util import (
+from goji.plotting.util import (
     PlotRefreshResult,
     PlotRefreshEvents,
     remove_plot,
@@ -14,8 +14,8 @@ from replaceme.plotting.util import (
     add_plot_directory,
     remove_plot_directory,
 )
-from replaceme.util.path import mkdir
-from replaceme.plotting.manager import PlotManager
+from goji.util.path import mkdir
+from goji.plotting.manager import PlotManager
 from tests.block_tools import get_plot_dir
 from tests.setup_nodes import bt
 from tests.time_out_assert import time_out_assert

@@ -2,10 +2,10 @@ from typing import List, Optional
 
 import aiosqlite
 
-from replaceme.util.db_wrapper import DBWrapper
-from replaceme.util.ints import uint32
-from replaceme.wallet.util.wallet_types import WalletType
-from replaceme.wallet.wallet_info import WalletInfo
+from goji.util.db_wrapper import DBWrapper
+from goji.util.ints import uint32
+from goji.wallet.util.wallet_types import WalletType
+from goji.wallet.wallet_info import WalletInfo
 
 
 class WalletUserStore:
@@ -46,7 +46,7 @@ class WalletUserStore:
     async def init_wallet(self):
         all_wallets = await self.get_all_wallet_info_entries()
         if len(all_wallets) == 0:
-            await self.create_wallet("Replaceme Wallet", WalletType.STANDARD_WALLET, "")
+            await self.create_wallet("Goji Wallet", WalletType.STANDARD_WALLET, "")
 
     async def _clear_database(self):
         cursor = await self.db_connection.execute("DELETE FROM users_wallets")

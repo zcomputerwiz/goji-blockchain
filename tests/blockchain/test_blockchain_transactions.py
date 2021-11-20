@@ -4,14 +4,14 @@ import logging
 import pytest
 from clvm.casts import int_to_bytes
 
-from replaceme.consensus.blockchain import ReceiveBlockResult
-from replaceme.protocols import full_node_protocol, wallet_protocol
-from replaceme.types.announcement import Announcement
-from replaceme.types.condition_opcodes import ConditionOpcode
-from replaceme.types.condition_with_args import ConditionWithArgs
-from replaceme.types.spend_bundle import SpendBundle
-from replaceme.util.errors import ConsensusError, Err
-from replaceme.util.ints import uint64
+from goji.consensus.blockchain import ReceiveBlockResult
+from goji.protocols import full_node_protocol, wallet_protocol
+from goji.types.announcement import Announcement
+from goji.types.condition_opcodes import ConditionOpcode
+from goji.types.condition_with_args import ConditionWithArgs
+from goji.types.spend_bundle import SpendBundle
+from goji.util.errors import ConsensusError, Err
+from goji.util.ints import uint64
 from tests.wallet_tools import WalletTool
 from tests.setup_nodes import bt, setup_two_nodes, test_constants
 from tests.util.generator_tools_testing import run_and_get_removals_and_additions
@@ -978,9 +978,9 @@ class TestBlockchainTransactions:
             if coin.puzzle_hash == coinbase_puzzlehash:
                 spend_coin_block_1 = coin
 
-        # This condition requires fee to be 10 mojo
+        # This condition requires fee to be 10 moji
         cvp_fee = ConditionWithArgs(ConditionOpcode.RESERVE_FEE, [int_to_bytes(10)])
-        # This spend bundle has 9 mojo as fee
+        # This spend bundle has 9 moji as fee
         block1_dic_bad = {cvp_fee.opcode: [cvp_fee]}
         block1_dic_good = {cvp_fee.opcode: [cvp_fee]}
         block1_spend_bundle_bad = wallet_a.generate_signed_transaction(

@@ -6,35 +6,35 @@ from typing import Callable, Dict, List, Optional, Tuple
 
 from blspy import PrivateKey, G1Element
 
-from replaceme.consensus.block_rewards import calculate_base_farmer_reward
-from replaceme.pools.pool_wallet import PoolWallet
-from replaceme.pools.pool_wallet_info import create_pool_state, FARMING_TO_POOL, PoolWalletInfo, PoolState
-from replaceme.protocols.protocol_message_types import ProtocolMessageTypes
-from replaceme.server.outbound_message import NodeType, make_msg
-from replaceme.simulator.simulator_protocol import FarmNewBlockProtocol
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.util.bech32m import decode_puzzle_hash, encode_puzzle_hash
-from replaceme.util.byte_types import hexstr_to_bytes
-from replaceme.util.ints import uint32, uint64
-from replaceme.util.keychain import KeyringIsLocked, bytes_to_mnemonic, generate_mnemonic
-from replaceme.util.path import path_from_root
-from replaceme.util.ws_message import WsRpcMessage, create_payload_dict
-from replaceme.wallet.cc_wallet.cc_wallet import CCWallet
-from replaceme.wallet.derive_keys import master_sk_to_singleton_owner_sk
-from replaceme.wallet.rl_wallet.rl_wallet import RLWallet
-from replaceme.wallet.derive_keys import master_sk_to_farmer_sk, master_sk_to_pool_sk, master_sk_to_wallet_sk
-from replaceme.wallet.did_wallet.did_wallet import DIDWallet
-from replaceme.wallet.trade_record import TradeRecord
-from replaceme.wallet.transaction_record import TransactionRecord
-from replaceme.wallet.util.backup_utils import download_backup, get_backup_info, upload_backup
-from replaceme.wallet.util.trade_utils import trade_record_to_dict
-from replaceme.wallet.util.transaction_type import TransactionType
-from replaceme.wallet.util.wallet_types import WalletType
-from replaceme.wallet.wallet_info import WalletInfo
-from replaceme.wallet.wallet_node import WalletNode
-from replaceme.util.config import load_config
-from replaceme.consensus.coinbase import create_puzzlehash_for_pk
+from goji.consensus.block_rewards import calculate_base_farmer_reward
+from goji.pools.pool_wallet import PoolWallet
+from goji.pools.pool_wallet_info import create_pool_state, FARMING_TO_POOL, PoolWalletInfo, PoolState
+from goji.protocols.protocol_message_types import ProtocolMessageTypes
+from goji.server.outbound_message import NodeType, make_msg
+from goji.simulator.simulator_protocol import FarmNewBlockProtocol
+from goji.types.blockchain_format.coin import Coin
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.util.bech32m import decode_puzzle_hash, encode_puzzle_hash
+from goji.util.byte_types import hexstr_to_bytes
+from goji.util.ints import uint32, uint64
+from goji.util.keychain import KeyringIsLocked, bytes_to_mnemonic, generate_mnemonic
+from goji.util.path import path_from_root
+from goji.util.ws_message import WsRpcMessage, create_payload_dict
+from goji.wallet.cc_wallet.cc_wallet import CCWallet
+from goji.wallet.derive_keys import master_sk_to_singleton_owner_sk
+from goji.wallet.rl_wallet.rl_wallet import RLWallet
+from goji.wallet.derive_keys import master_sk_to_farmer_sk, master_sk_to_pool_sk, master_sk_to_wallet_sk
+from goji.wallet.did_wallet.did_wallet import DIDWallet
+from goji.wallet.trade_record import TradeRecord
+from goji.wallet.transaction_record import TransactionRecord
+from goji.wallet.util.backup_utils import download_backup, get_backup_info, upload_backup
+from goji.wallet.util.trade_utils import trade_record_to_dict
+from goji.wallet.util.transaction_type import TransactionType
+from goji.wallet.util.wallet_types import WalletType
+from goji.wallet.wallet_info import WalletInfo
+from goji.wallet.wallet_node import WalletNode
+from goji.util.config import load_config
+from goji.consensus.coinbase import create_puzzlehash_for_pk
 
 # Timeout for response from wallet/full node for sending a transaction
 TIMEOUT = 30
@@ -46,7 +46,7 @@ class WalletRpcApi:
     def __init__(self, wallet_node: WalletNode):
         assert wallet_node is not None
         self.service = wallet_node
-        self.service_name = "replaceme_wallet"
+        self.service_name = "goji_wallet"
 
     def get_routes(self) -> Dict[str, Callable]:
         return {
@@ -128,7 +128,7 @@ class WalletRpcApi:
             data["wallet_id"] = args[1]
         if args[2] is not None:
             data["additional_data"] = args[2]
-        return [create_payload_dict("state_changed", data, "replaceme_wallet", "wallet_ui")]
+        return [create_payload_dict("state_changed", data, "goji_wallet", "wallet_ui")]
 
     async def _stop_wallet(self):
         """
@@ -308,8 +308,8 @@ class WalletRpcApi:
             return False, False
 
         config: Dict = load_config(new_root, "config.yaml")
-        farmer_target = config["farmer"].get("xch_target_address")
-        pool_target = config["pool"].get("xch_target_address")
+        farmer_target = config["farmer"].get("xgj_target_address")
+        pool_target = config["pool"].get("xgj_target_address")
         found_farmer = False
         found_pool = False
         selected = config["selected_network"]
@@ -564,7 +564,7 @@ class WalletRpcApi:
             if request["mode"] == "new":
                 owner_puzzle_hash: bytes32 = await self.service.wallet_state_manager.main_wallet.get_puzzle_hash(True)
 
-                from replaceme.pools.pool_wallet_info import initial_pool_state_from_dict
+                from goji.pools.pool_wallet_info import initial_pool_state_from_dict
 
                 async with self.service.wallet_state_manager.lock:
                     last_wallet: Optional[

@@ -1,12 +1,12 @@
 from typing import Dict, List, Optional
 
-from replaceme.consensus.block_record import BlockRecord
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.blockchain_format.sub_epoch_summary import SubEpochSummary
-from replaceme.types.blockchain_format.vdf import VDFInfo
-from replaceme.types.header_block import HeaderBlock
-from replaceme.types.weight_proof import SubEpochChallengeSegment
-from replaceme.util.ints import uint32
+from goji.consensus.block_record import BlockRecord
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.blockchain_format.sub_epoch_summary import SubEpochSummary
+from goji.types.blockchain_format.vdf import VDFInfo
+from goji.types.header_block import HeaderBlock
+from goji.types.weight_proof import SubEpochChallengeSegment
+from goji.util.ints import uint32
 
 
 class BlockchainInterface:

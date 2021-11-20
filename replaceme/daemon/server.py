@@ -16,18 +16,18 @@ from typing import Any, Dict, List, Optional, TextIO, Tuple, cast
 
 from websockets import ConnectionClosedOK, WebSocketException, WebSocketServerProtocol, serve
 
-from replaceme.cmds.init_funcs import check_keys, replaceme_init
-from replaceme.cmds.passphrase_funcs import default_passphrase, using_default_passphrase
-from replaceme.daemon.keychain_server import KeychainServer, keychain_commands
-from replaceme.daemon.windows_signal import kill
-from replaceme.plotters.plotters import get_available_plotters
-from replaceme.plotting.util import add_plot_directory
-from replaceme.server.server import ssl_context_for_root, ssl_context_for_server
-from replaceme.ssl.create_ssl import get_mozilla_ca_crt
-from replaceme.util.replaceme_logging import initialize_logging
-from replaceme.util.config import load_config
-from replaceme.util.json_util import dict_to_json_str
-from replaceme.util.keychain import (
+from goji.cmds.init_funcs import check_keys, goji_init
+from goji.cmds.passphrase_funcs import default_passphrase, using_default_passphrase
+from goji.daemon.keychain_server import KeychainServer, keychain_commands
+from goji.daemon.windows_signal import kill
+from goji.plotters.plotters import get_available_plotters
+from goji.plotting.util import add_plot_directory
+from goji.server.server import ssl_context_for_root, ssl_context_for_server
+from goji.ssl.create_ssl import get_mozilla_ca_crt
+from goji.util.goji_logging import initialize_logging
+from goji.util.config import load_config
+from goji.util.json_util import dict_to_json_str
+from goji.util.keychain import (
     Keychain,
     KeyringCurrentPassphraseIsInvalid,
     KeyringRequiresMigration,
@@ -35,17 +35,17 @@ from replaceme.util.keychain import (
     supports_keyring_passphrase,
     supports_os_passphrase_storage,
 )
-from replaceme.util.path import mkdir
-from replaceme.util.service_groups import validate_service
-from replaceme.util.setproctitle import setproctitle
-from replaceme.util.ws_message import WsRpcMessage, create_payload, format_response
+from goji.util.path import mkdir
+from goji.util.service_groups import validate_service
+from goji.util.setproctitle import setproctitle
+from goji.util.ws_message import WsRpcMessage, create_payload, format_response
 
 io_pool_exc = ThreadPoolExecutor()
 
 try:
     from aiohttp import ClientSession, web
 except ModuleNotFoundError:
-    print("Error: Make sure to run . ./activate from the project folder before starting Replaceme.")
+    print("Error: Make sure to run . ./activate from the project folder before starting Goji.")
     quit()
 
 try:
@@ -90,15 +90,15 @@ class PlotEvent(str, Enum):
 # determine if application is a script file or frozen exe
 if getattr(sys, "frozen", False):
     name_map = {
-        "replaceme": "replaceme",
-        "replaceme_wallet": "start_wallet",
-        "replaceme_full_node": "start_full_node",
-        "replaceme_harvester": "start_harvester",
-        "replaceme_farmer": "start_farmer",
-        "replaceme_introducer": "start_introducer",
-        "replaceme_timelord": "start_timelord",
-        "replaceme_timelord_launcher": "timelord_launcher",
-        "replaceme_full_node_simulator": "start_simulator",
+        "goji": "goji",
+        "goji_wallet": "start_wallet",
+        "goji_full_node": "start_full_node",
+        "goji_harvester": "start_harvester",
+        "goji_farmer": "start_farmer",
+        "goji_introducer": "start_introducer",
+        "goji_timelord": "start_timelord",
+        "goji_timelord_launcher": "timelord_launcher",
+        "goji_full_node_simulator": "start_simulator",
     }
 
     def executable_for_service(service_name: str) -> str:
@@ -800,7 +800,7 @@ class WebSocketServer:
 
     def _build_plotting_command_args(self, request: Any, ignoreCount: bool, index: int) -> List[str]:
         plotter: str = request.get("plotter", "chiapos")
-        command_args: List[str] = ["replaceme", "plotters", plotter]
+        command_args: List[str] = ["goji", "plotters", plotter]
 
         command_args.extend(self._common_plotting_command_args(request, ignoreCount))
 
@@ -1103,7 +1103,7 @@ class WebSocketServer:
 
         # TODO: fix this hack
         asyncio.get_event_loop().call_later(5, lambda *args: sys.exit(0))
-        log.info("replaceme daemon exiting in 5 seconds")
+        log.info("goji daemon exiting in 5 seconds")
 
         response = {"success": True}
         return response
@@ -1160,8 +1160,8 @@ def plotter_log_path(root_path: Path, id: str):
 
 
 def launch_plotter(root_path: Path, service_name: str, service_array: List[str], id: str):
-    # we need to pass on the possibly altered REPLACEME_ROOT
-    os.environ["REPLACEME_ROOT"] = str(root_path)
+    # we need to pass on the possibly altered GOJI_ROOT
+    os.environ["GOJI_ROOT"] = str(root_path)
     service_executable = executable_for_service(service_array[0])
 
     # Swap service name with name of executable
@@ -1210,21 +1210,21 @@ def launch_service(root_path: Path, service_command) -> Tuple[subprocess.Popen, 
     """
     Launch a child process.
     """
-    # set up REPLACEME_ROOT
+    # set up GOJI_ROOT
     # invoke correct script
     # save away PID
 
-    # we need to pass on the possibly altered REPLACEME_ROOT
-    os.environ["REPLACEME_ROOT"] = str(root_path)
+    # we need to pass on the possibly altered GOJI_ROOT
+    os.environ["GOJI_ROOT"] = str(root_path)
 
-    log.debug(f"Launching service with REPLACEME_ROOT: {os.environ['REPLACEME_ROOT']}")
+    log.debug(f"Launching service with GOJI_ROOT: {os.environ['GOJI_ROOT']}")
 
     # Insert proper e
     service_array = service_command.split()
     service_executable = executable_for_service(service_array[0])
     service_array[0] = service_executable
 
-    if service_command == "replaceme_full_node_simulator":
+    if service_command == "goji_full_node_simulator":
         # Set the -D/--connect_to_daemon flag to signify that the child should connect
         # to the daemon to access the keychain
         service_array.append("-D")
@@ -1392,11 +1392,11 @@ def singleton(lockfile: Path, text: str = "semaphore") -> Optional[TextIO]:
 
 
 async def async_run_daemon(root_path: Path, wait_for_unlock: bool = False) -> int:
-    # When wait_for_unlock is true, we want to skip the check_keys() call in replaceme_init
+    # When wait_for_unlock is true, we want to skip the check_keys() call in goji_init
     # since it might be necessary to wait for the GUI to unlock the keyring first.
-    replaceme_init(root_path, should_check_keys=(not wait_for_unlock))
+    goji_init(root_path, should_check_keys=(not wait_for_unlock))
     config = load_config(root_path, "config.yaml")
-    setproctitle("replaceme_daemon")
+    setproctitle("goji_daemon")
     initialize_logging("daemon", config["logging"], root_path)
     lockfile = singleton(daemon_launch_lock_path(root_path))
     crt_path = root_path / config["daemon_ssl"]["private_crt"]
@@ -1438,8 +1438,8 @@ def run_daemon(root_path: Path, wait_for_unlock: bool = False) -> int:
 
 
 def main(argv) -> int:
-    from replaceme.util.default_root import DEFAULT_ROOT_PATH
-    from replaceme.util.keychain import Keychain
+    from goji.util.default_root import DEFAULT_ROOT_PATH
+    from goji.util.keychain import Keychain
 
     wait_for_unlock = "--wait-for-unlock" in argv and Keychain.is_keyring_locked()
     return run_daemon(DEFAULT_ROOT_PATH, wait_for_unlock)

@@ -7,30 +7,30 @@ import blspy
 from blspy import G1Element, G2Element
 from chiabip158 import PyBIP158
 
-from replaceme.consensus.block_record import BlockRecord
-from replaceme.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
-from replaceme.consensus.blockchain_interface import BlockchainInterface
-from replaceme.consensus.coinbase import create_farmer_coin, create_pool_coin
-from replaceme.consensus.constants import ConsensusConstants
-from replaceme.consensus.cost_calculator import NPCResult, calculate_cost_of_program
-from replaceme.full_node.mempool_check_conditions import get_name_puzzle_conditions
-from replaceme.full_node.signage_point import SignagePoint
-from replaceme.types.blockchain_format.coin import Coin, hash_coin_list
-from replaceme.types.blockchain_format.foliage import Foliage, FoliageBlockData, FoliageTransactionBlock, TransactionsInfo
-from replaceme.types.blockchain_format.pool_target import PoolTarget
-from replaceme.types.blockchain_format.proof_of_space import ProofOfSpace
-from replaceme.types.blockchain_format.reward_chain_block import RewardChainBlock, RewardChainBlockUnfinished
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.blockchain_format.vdf import VDFInfo, VDFProof
-from replaceme.types.end_of_slot_bundle import EndOfSubSlotBundle
-from replaceme.types.full_block import FullBlock
-from replaceme.types.generator_types import BlockGenerator
-from replaceme.types.unfinished_block import UnfinishedBlock
-from replaceme.util.hash import std_hash
-from replaceme.util.ints import uint8, uint32, uint64, uint128
-from replaceme.util.merkle_set import MerkleSet
-from replaceme.util.prev_transaction_block import get_prev_transaction_block
-from replaceme.util.recursive_replace import recursive_replace
+from goji.consensus.block_record import BlockRecord
+from goji.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
+from goji.consensus.blockchain_interface import BlockchainInterface
+from goji.consensus.coinbase import create_farmer_coin, create_pool_coin
+from goji.consensus.constants import ConsensusConstants
+from goji.consensus.cost_calculator import NPCResult, calculate_cost_of_program
+from goji.full_node.mempool_check_conditions import get_name_puzzle_conditions
+from goji.full_node.signage_point import SignagePoint
+from goji.types.blockchain_format.coin import Coin, hash_coin_list
+from goji.types.blockchain_format.foliage import Foliage, FoliageBlockData, FoliageTransactionBlock, TransactionsInfo
+from goji.types.blockchain_format.pool_target import PoolTarget
+from goji.types.blockchain_format.proof_of_space import ProofOfSpace
+from goji.types.blockchain_format.reward_chain_block import RewardChainBlock, RewardChainBlockUnfinished
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.blockchain_format.vdf import VDFInfo, VDFProof
+from goji.types.end_of_slot_bundle import EndOfSubSlotBundle
+from goji.types.full_block import FullBlock
+from goji.types.generator_types import BlockGenerator
+from goji.types.unfinished_block import UnfinishedBlock
+from goji.util.hash import std_hash
+from goji.util.ints import uint8, uint32, uint64, uint128
+from goji.util.merkle_set import MerkleSet
+from goji.util.prev_transaction_block import get_prev_transaction_block
+from goji.util.recursive_replace import recursive_replace
 
 log = logging.getLogger(__name__)
 

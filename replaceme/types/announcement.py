@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.util.hash import std_hash
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.util.hash import std_hash
 
 
 @dataclass(frozen=True)

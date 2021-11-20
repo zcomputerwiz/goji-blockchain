@@ -6,26 +6,26 @@ from typing import Any, Callable, Dict, List, Optional
 
 from aiohttp import WSCloseCode, WSMessage, WSMsgType
 
-from replaceme.cmds.init_funcs import replaceme_full_version_str
-from replaceme.protocols.protocol_message_types import ProtocolMessageTypes
-from replaceme.protocols.protocol_state_machine import message_response_ok
-from replaceme.protocols.protocol_timing import INTERNAL_PROTOCOL_ERROR_BAN_SECONDS
-from replaceme.protocols.shared_protocol import Capability, Handshake
-from replaceme.server.outbound_message import Message, NodeType, make_msg
-from replaceme.server.rate_limits import RateLimiter
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.peer_info import PeerInfo
-from replaceme.util.errors import Err, ProtocolError
-from replaceme.util.ints import uint8, uint16
+from goji.cmds.init_funcs import goji_full_version_str
+from goji.protocols.protocol_message_types import ProtocolMessageTypes
+from goji.protocols.protocol_state_machine import message_response_ok
+from goji.protocols.protocol_timing import INTERNAL_PROTOCOL_ERROR_BAN_SECONDS
+from goji.protocols.shared_protocol import Capability, Handshake
+from goji.server.outbound_message import Message, NodeType, make_msg
+from goji.server.rate_limits import RateLimiter
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.peer_info import PeerInfo
+from goji.util.errors import Err, ProtocolError
+from goji.util.ints import uint8, uint16
 
 # Each message is prepended with LENGTH_BYTES bytes specifying the length
-from replaceme.util.network import class_for_type, is_localhost
+from goji.util.network import class_for_type, is_localhost
 
 # Max size 2^(8*4) which is around 4GiB
 LENGTH_BYTES: int = 4
 
 
-class WSReplacemeConnection:
+class WSGojiConnection:
     """
     Represents a connection to another node. Local host and port are ours, while peer host and
     port are the host and port of the peer that we are connected to. Node_id and connection_type are
@@ -71,7 +71,7 @@ class WSReplacemeConnection:
         self.is_outbound = is_outbound
         self.is_feeler = is_feeler
 
-        # ReplacemeConnection metrics
+        # GojiConnection metrics
         self.creation_time = time.time()
         self.bytes_read = 0
         self.bytes_written = 0
@@ -115,7 +115,7 @@ class WSReplacemeConnection:
                 Handshake(
                     network_id,
                     protocol_version,
-                    replaceme_full_version_str(),
+                    goji_full_version_str(),
                     uint16(server_port),
                     uint8(local_type.value),
                     [(uint16(Capability.BASE.value), "1")],
@@ -171,7 +171,7 @@ class WSReplacemeConnection:
                 Handshake(
                     network_id,
                     protocol_version,
-                    replaceme_full_version_str(),
+                    goji_full_version_str(),
                     uint16(server_port),
                     uint8(local_type.value),
                     [(uint16(Capability.BASE.value), "1")],

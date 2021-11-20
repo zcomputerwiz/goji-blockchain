@@ -1,10 +1,10 @@
 from typing import Dict
 from unittest import TestCase
 
-from replaceme.types.blockchain_format.program import Program, SerializedProgram
-from replaceme.types.generator_types import GeneratorBlockCacheInterface
-from replaceme.full_node.generator import create_block_generator, create_generator_args
-from replaceme.util.ints import uint32
+from goji.types.blockchain_format.program import Program, SerializedProgram
+from goji.types.generator_types import GeneratorBlockCacheInterface
+from goji.full_node.generator import create_block_generator, create_generator_args
+from goji.util.ints import uint32
 
 gen0 = SerializedProgram.from_bytes(
     bytes.fromhex(

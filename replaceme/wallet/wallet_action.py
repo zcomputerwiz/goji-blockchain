@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from replaceme.util.ints import uint32
-from replaceme.wallet.util.wallet_types import WalletType
+from goji.util.ints import uint32
+from goji.wallet.util.wallet_types import WalletType
 
 
 @dataclass(frozen=True)

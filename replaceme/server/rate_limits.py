@@ -4,8 +4,8 @@ import time
 from collections import Counter
 from typing import Optional
 
-from replaceme.protocols.protocol_message_types import ProtocolMessageTypes
-from replaceme.server.outbound_message import Message
+from goji.protocols.protocol_message_types import ProtocolMessageTypes
+from goji.server.outbound_message import Message
 
 log = logging.getLogger(__name__)
 

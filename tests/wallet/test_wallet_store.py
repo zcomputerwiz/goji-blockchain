@@ -4,10 +4,10 @@
 # from secrets import token_bytes
 # import aiosqlite
 # import pytest
-# from replaceme.util.ints import uint32, uint64, uint128
-# from replaceme.wallet.wallet_coin_record import WalletCoinRecord
-# from replaceme.wallet.util.wallet_types import WalletType
-# from replaceme.types.coin import Coin
+# from goji.util.ints import uint32, uint64, uint128
+# from goji.wallet.wallet_coin_record import WalletCoinRecord
+# from goji.wallet.util.wallet_types import WalletType
+# from goji.types.coin import Coin
 #
 #
 # @pytest.fixture(scope="module")

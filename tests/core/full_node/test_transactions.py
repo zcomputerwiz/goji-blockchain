@@ -4,13 +4,13 @@ from typing import Optional
 
 import pytest
 
-from replaceme.consensus.block_record import BlockRecord
-from replaceme.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
-from replaceme.full_node.full_node_api import FullNodeAPI
-from replaceme.protocols import full_node_protocol
-from replaceme.simulator.simulator_protocol import FarmNewBlockProtocol
-from replaceme.types.peer_info import PeerInfo
-from replaceme.util.ints import uint16, uint32
+from goji.consensus.block_record import BlockRecord
+from goji.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
+from goji.full_node.full_node_api import FullNodeAPI
+from goji.protocols import full_node_protocol
+from goji.simulator.simulator_protocol import FarmNewBlockProtocol
+from goji.types.peer_info import PeerInfo
+from goji.util.ints import uint16, uint32
 from tests.setup_nodes import self_hostname, setup_simulators_and_wallets
 from tests.time_out_assert import time_out_assert
 

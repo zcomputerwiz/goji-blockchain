@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from replaceme.server.ws_connection import WSReplacemeConnection
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.spend_bundle import SpendBundle
+from goji.server.ws_connection import WSGojiConnection
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.spend_bundle import SpendBundle
 
 
 @dataclass(frozen=True)
@@ -15,7 +15,7 @@ class TransactionQueueEntry:
     transaction: SpendBundle
     transaction_bytes: Optional[bytes]
     spend_name: bytes32
-    peer: Optional[WSReplacemeConnection]
+    peer: Optional[WSGojiConnection]
     test: bool
 
     def __lt__(self, other):

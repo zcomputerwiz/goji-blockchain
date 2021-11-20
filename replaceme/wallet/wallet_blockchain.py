@@ -6,27 +6,27 @@ from concurrent.futures.process import ProcessPoolExecutor
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple
 
-from replaceme.consensus.block_header_validation import validate_finished_header_block, validate_unfinished_header_block
-from replaceme.consensus.block_record import BlockRecord
-from replaceme.consensus.blockchain_interface import BlockchainInterface
-from replaceme.consensus.constants import ConsensusConstants
-from replaceme.consensus.difficulty_adjustment import get_next_sub_slot_iters_and_difficulty
-from replaceme.consensus.find_fork_point import find_fork_point_in_chain
-from replaceme.consensus.full_block_to_block_record import block_to_block_record
-from replaceme.consensus.multiprocess_validation import PreValidationResult, pre_validate_blocks_multiprocessing
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.blockchain_format.sub_epoch_summary import SubEpochSummary
-from replaceme.types.coin_spend import CoinSpend
-from replaceme.types.header_block import HeaderBlock
-from replaceme.types.unfinished_header_block import UnfinishedHeaderBlock
-from replaceme.util.errors import Err, ValidationError
-from replaceme.util.ints import uint32, uint64
-from replaceme.util.streamable import recurse_jsonify
-from replaceme.wallet.block_record import HeaderBlockRecord
-from replaceme.wallet.wallet_block_store import WalletBlockStore
-from replaceme.wallet.wallet_coin_store import WalletCoinStore
-from replaceme.wallet.wallet_pool_store import WalletPoolStore
-from replaceme.wallet.wallet_transaction_store import WalletTransactionStore
+from goji.consensus.block_header_validation import validate_finished_header_block, validate_unfinished_header_block
+from goji.consensus.block_record import BlockRecord
+from goji.consensus.blockchain_interface import BlockchainInterface
+from goji.consensus.constants import ConsensusConstants
+from goji.consensus.difficulty_adjustment import get_next_sub_slot_iters_and_difficulty
+from goji.consensus.find_fork_point import find_fork_point_in_chain
+from goji.consensus.full_block_to_block_record import block_to_block_record
+from goji.consensus.multiprocess_validation import PreValidationResult, pre_validate_blocks_multiprocessing
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.blockchain_format.sub_epoch_summary import SubEpochSummary
+from goji.types.coin_spend import CoinSpend
+from goji.types.header_block import HeaderBlock
+from goji.types.unfinished_header_block import UnfinishedHeaderBlock
+from goji.util.errors import Err, ValidationError
+from goji.util.ints import uint32, uint64
+from goji.util.streamable import recurse_jsonify
+from goji.wallet.block_record import HeaderBlockRecord
+from goji.wallet.wallet_block_store import WalletBlockStore
+from goji.wallet.wallet_coin_store import WalletCoinStore
+from goji.wallet.wallet_pool_store import WalletPoolStore
+from goji.wallet.wallet_transaction_store import WalletTransactionStore
 
 log = logging.getLogger(__name__)
 

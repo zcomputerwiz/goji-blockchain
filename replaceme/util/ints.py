@@ -1,6 +1,6 @@
 from typing import Any, BinaryIO
 
-from replaceme.util.struct_stream import StructStream
+from goji.util.struct_stream import StructStream
 
 
 class int8(StructStream):

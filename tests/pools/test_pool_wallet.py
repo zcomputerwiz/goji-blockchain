@@ -5,15 +5,15 @@ from typing import List
 import pytest
 from blspy import PrivateKey
 
-from replaceme.pools.pool_wallet import PoolWallet
-from replaceme.pools.pool_wallet_info import PoolState, FARMING_TO_POOL
-from replaceme.simulator.simulator_protocol import FarmNewBlockProtocol
-from replaceme.types.coin_spend import CoinSpend
-from replaceme.types.full_block import FullBlock
-from replaceme.types.peer_info import PeerInfo
-from replaceme.util.ints import uint16, uint32
-from replaceme.wallet.derive_keys import master_sk_to_singleton_owner_sk
-from replaceme.wallet.wallet_state_manager import WalletStateManager
+from goji.pools.pool_wallet import PoolWallet
+from goji.pools.pool_wallet_info import PoolState, FARMING_TO_POOL
+from goji.simulator.simulator_protocol import FarmNewBlockProtocol
+from goji.types.coin_spend import CoinSpend
+from goji.types.full_block import FullBlock
+from goji.types.peer_info import PeerInfo
+from goji.util.ints import uint16, uint32
+from goji.wallet.derive_keys import master_sk_to_singleton_owner_sk
+from goji.wallet.wallet_state_manager import WalletStateManager
 from tests.setup_nodes import self_hostname, setup_simulators_and_wallets
 
 

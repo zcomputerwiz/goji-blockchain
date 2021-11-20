@@ -9,37 +9,37 @@ from typing import Dict, Optional, List
 
 import pytest
 
-from replaceme.consensus.pot_iterations import is_overflow_block
-from replaceme.full_node.bundle_tools import detect_potential_template_generator
-from replaceme.full_node.full_node_api import FullNodeAPI
-from replaceme.full_node.signage_point import SignagePoint
-from replaceme.protocols import full_node_protocol as fnp, full_node_protocol, wallet_protocol
-from replaceme.protocols import timelord_protocol
-from replaceme.protocols.full_node_protocol import RespondTransaction
-from replaceme.protocols.protocol_message_types import ProtocolMessageTypes
-from replaceme.server.address_manager import AddressManager
-from replaceme.server.outbound_message import Message
-from replaceme.simulator.simulator_protocol import FarmNewBlockProtocol
-from replaceme.types.blockchain_format.classgroup import ClassgroupElement
-from replaceme.types.blockchain_format.program import SerializedProgram
-from replaceme.types.blockchain_format.vdf import CompressibleVDFField, VDFProof
-from replaceme.types.condition_opcodes import ConditionOpcode
-from replaceme.types.condition_with_args import ConditionWithArgs
-from replaceme.types.full_block import FullBlock
-from replaceme.types.mempool_inclusion_status import MempoolInclusionStatus
-from replaceme.types.peer_info import PeerInfo, TimestampedPeerInfo
-from replaceme.types.spend_bundle import SpendBundle
-from replaceme.types.unfinished_block import UnfinishedBlock
+from goji.consensus.pot_iterations import is_overflow_block
+from goji.full_node.bundle_tools import detect_potential_template_generator
+from goji.full_node.full_node_api import FullNodeAPI
+from goji.full_node.signage_point import SignagePoint
+from goji.protocols import full_node_protocol as fnp, full_node_protocol, wallet_protocol
+from goji.protocols import timelord_protocol
+from goji.protocols.full_node_protocol import RespondTransaction
+from goji.protocols.protocol_message_types import ProtocolMessageTypes
+from goji.server.address_manager import AddressManager
+from goji.server.outbound_message import Message
+from goji.simulator.simulator_protocol import FarmNewBlockProtocol
+from goji.types.blockchain_format.classgroup import ClassgroupElement
+from goji.types.blockchain_format.program import SerializedProgram
+from goji.types.blockchain_format.vdf import CompressibleVDFField, VDFProof
+from goji.types.condition_opcodes import ConditionOpcode
+from goji.types.condition_with_args import ConditionWithArgs
+from goji.types.full_block import FullBlock
+from goji.types.mempool_inclusion_status import MempoolInclusionStatus
+from goji.types.peer_info import PeerInfo, TimestampedPeerInfo
+from goji.types.spend_bundle import SpendBundle
+from goji.types.unfinished_block import UnfinishedBlock
 from tests.block_tools import get_signage_point
-from replaceme.util.clvm import int_to_bytes
-from replaceme.util.errors import Err
-from replaceme.util.hash import std_hash
-from replaceme.util.ints import uint8, uint16, uint32, uint64
-from replaceme.util.recursive_replace import recursive_replace
-from replaceme.util.vdf_prover import get_vdf_info_and_proof
+from goji.util.clvm import int_to_bytes
+from goji.util.errors import Err
+from goji.util.hash import std_hash
+from goji.util.ints import uint8, uint16, uint32, uint64
+from goji.util.recursive_replace import recursive_replace
+from goji.util.vdf_prover import get_vdf_info_and_proof
 from tests.wallet_tools import WalletTool
-from replaceme.wallet.cc_wallet.cc_wallet import CCWallet
-from replaceme.wallet.transaction_record import TransactionRecord
+from goji.wallet.cc_wallet.cc_wallet import CCWallet
+from goji.wallet.transaction_record import TransactionRecord
 
 from tests.connection_utils import add_dummy_connection, connect_and_get_peer
 from tests.core.full_node.test_coin_store import get_future_reward_coins

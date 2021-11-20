@@ -1,13 +1,13 @@
 from clvm_tools import binutils
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.blockchain_format.program import Program
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.blockchain_format.program import Program
 from typing import List, Optional, Tuple
 from blspy import G1Element
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.coin_spend import CoinSpend
-from replaceme.util.ints import uint64
-from replaceme.wallet.puzzles.load_clvm import load_clvm
-from replaceme.types.condition_opcodes import ConditionOpcode
+from goji.types.blockchain_format.coin import Coin
+from goji.types.coin_spend import CoinSpend
+from goji.util.ints import uint64
+from goji.wallet.puzzles.load_clvm import load_clvm
+from goji.types.condition_opcodes import ConditionOpcode
 
 
 SINGLETON_TOP_LAYER_MOD = load_clvm("singleton_top_layer.clvm")

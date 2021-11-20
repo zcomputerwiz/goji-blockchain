@@ -4,12 +4,12 @@ import asyncio
 import pytest
 from colorlog import logging
 
-from replaceme.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
-from replaceme.protocols import full_node_protocol
-from replaceme.simulator.simulator_protocol import FarmNewBlockProtocol
-from replaceme.types.peer_info import PeerInfo
-from replaceme.util.ints import uint16, uint32
-from replaceme.wallet.wallet_state_manager import WalletStateManager
+from goji.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
+from goji.protocols import full_node_protocol
+from goji.simulator.simulator_protocol import FarmNewBlockProtocol
+from goji.types.peer_info import PeerInfo
+from goji.util.ints import uint16, uint32
+from goji.wallet.wallet_state_manager import WalletStateManager
 from tests.connection_utils import disconnect_all_and_reconnect
 from tests.setup_nodes import bt, self_hostname, setup_node_and_wallet, setup_simulators_and_wallets, test_constants
 from tests.time_out_assert import time_out_assert

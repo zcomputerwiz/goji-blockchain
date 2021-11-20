@@ -4,17 +4,17 @@ export NODE_OPTIONS="--max-old-space-size=3000"
 
 
 if [ -z "$VIRTUAL_ENV" ]; then
-  echo "This requires the replaceme python virtual environment."
+  echo "This requires the goji python virtual environment."
   echo "Execute '. ./activate' before running."
 	exit 1
 fi
 
 if [ "$(id -u)" = 0 ]; then
-  echo "The Replaceme Blockchain GUI can not be installed or run by the root user."
+  echo "The Goji Blockchain GUI can not be installed or run by the root user."
 	exit 1
 fi
 
-# Allows overriding the branch or commit to build in replaceme-blockchain-gui
+# Allows overriding the branch or commit to build in goji-blockchain-gui
 SUBMODULE_BRANCH=$1
 
 UBUNTU=false
@@ -90,7 +90,7 @@ if [ ! "$CI" ]; then
 	echo "Running git submodule update."
 	echo ""
 	git submodule update
-	cd replaceme-blockchain-gui
+	cd goji-blockchain-gui
 
 	if [ "$SUBMODULE_BRANCH" ];
 	then
@@ -111,6 +111,6 @@ else
 fi
 
 echo ""
-echo "Replaceme blockchain install-gui.sh completed."
+echo "Goji blockchain install-gui.sh completed."
 echo ""
-echo "Type 'cd replaceme-blockchain-gui' and then 'npm run electron &' to start the GUI."
+echo "Type 'cd goji-blockchain-gui' and then 'npm run electron &' to start the GUI."

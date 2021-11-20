@@ -2,21 +2,21 @@ from typing import Dict, List, Optional, Tuple, Any
 
 from blspy import AugSchemeMPL, G2Element, PrivateKey
 
-from replaceme.consensus.constants import ConsensusConstants
-from replaceme.util.hash import std_hash
-from replaceme.types.announcement import Announcement
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.blockchain_format.program import Program
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.coin_spend import CoinSpend
-from replaceme.types.condition_opcodes import ConditionOpcode
-from replaceme.types.condition_with_args import ConditionWithArgs
-from replaceme.types.spend_bundle import SpendBundle
-from replaceme.util.clvm import int_from_bytes, int_to_bytes
-from replaceme.util.condition_tools import conditions_by_opcode, conditions_for_solution
-from replaceme.util.ints import uint32, uint64
-from replaceme.wallet.derive_keys import master_sk_to_wallet_sk
-from replaceme.wallet.puzzles.p2_delegated_puzzle_or_hidden_puzzle import (
+from goji.consensus.constants import ConsensusConstants
+from goji.util.hash import std_hash
+from goji.types.announcement import Announcement
+from goji.types.blockchain_format.coin import Coin
+from goji.types.blockchain_format.program import Program
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.coin_spend import CoinSpend
+from goji.types.condition_opcodes import ConditionOpcode
+from goji.types.condition_with_args import ConditionWithArgs
+from goji.types.spend_bundle import SpendBundle
+from goji.util.clvm import int_from_bytes, int_to_bytes
+from goji.util.condition_tools import conditions_by_opcode, conditions_for_solution
+from goji.util.ints import uint32, uint64
+from goji.wallet.derive_keys import master_sk_to_wallet_sk
+from goji.wallet.puzzles.p2_delegated_puzzle_or_hidden_puzzle import (
     DEFAULT_HIDDEN_PUZZLE_HASH,
     calculate_synthetic_secret_key,
     puzzle_for_pk,

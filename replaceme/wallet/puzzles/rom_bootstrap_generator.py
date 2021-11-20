@@ -1,4 +1,4 @@
-from replaceme.types.blockchain_format.program import SerializedProgram
+from goji.types.blockchain_format.program import SerializedProgram
 
 from .load_clvm import load_clvm
 

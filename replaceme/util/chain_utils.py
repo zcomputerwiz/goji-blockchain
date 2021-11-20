@@ -2,11 +2,11 @@ from typing import List
 
 from clvm.casts import int_from_bytes
 
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.blockchain_format.program import SerializedProgram
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.condition_opcodes import ConditionOpcode
-from replaceme.util.condition_tools import (
+from goji.types.blockchain_format.coin import Coin
+from goji.types.blockchain_format.program import SerializedProgram
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.condition_opcodes import ConditionOpcode
+from goji.util.condition_tools import (
     conditions_dict_for_solution,
     created_outputs_for_conditions_dict,
 )

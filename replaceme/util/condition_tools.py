@@ -1,15 +1,15 @@
 from typing import Dict, List, Optional, Tuple, Set
 
-from replaceme.types.announcement import Announcement
-from replaceme.types.name_puzzle_condition import NPC
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.blockchain_format.program import Program, SerializedProgram
-from replaceme.types.blockchain_format.sized_bytes import bytes32, bytes48
-from replaceme.types.condition_opcodes import ConditionOpcode
-from replaceme.types.condition_with_args import ConditionWithArgs
-from replaceme.util.clvm import int_from_bytes
-from replaceme.util.errors import ConsensusError, Err
-from replaceme.util.ints import uint64
+from goji.types.announcement import Announcement
+from goji.types.name_puzzle_condition import NPC
+from goji.types.blockchain_format.coin import Coin
+from goji.types.blockchain_format.program import Program, SerializedProgram
+from goji.types.blockchain_format.sized_bytes import bytes32, bytes48
+from goji.types.condition_opcodes import ConditionOpcode
+from goji.types.condition_with_args import ConditionWithArgs
+from goji.util.clvm import int_from_bytes
+from goji.util.errors import ConsensusError, Err
+from goji.util.ints import uint64
 
 # TODO: review each `assert` and consider replacing with explicit checks
 #       since asserts can be stripped with python `-OO` flag

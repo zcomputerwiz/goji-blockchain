@@ -7,13 +7,13 @@ from typing import Any, Callable, Dict, List, Optional
 
 import aiohttp
 
-from replaceme.server.outbound_message import NodeType
-from replaceme.server.server import ssl_context_for_server
-from replaceme.types.peer_info import PeerInfo
-from replaceme.util.byte_types import hexstr_to_bytes
-from replaceme.util.ints import uint16
-from replaceme.util.json_util import dict_to_json_str, obj_to_response
-from replaceme.util.ws_message import create_payload, create_payload_dict, format_response, pong
+from goji.server.outbound_message import NodeType
+from goji.server.server import ssl_context_for_server
+from goji.types.peer_info import PeerInfo
+from goji.util.byte_types import hexstr_to_bytes
+from goji.util.ints import uint16
+from goji.util.json_util import dict_to_json_str, obj_to_response
+from goji.util.ws_message import create_payload, create_payload_dict, format_response, pong
 
 log = logging.getLogger(__name__)
 

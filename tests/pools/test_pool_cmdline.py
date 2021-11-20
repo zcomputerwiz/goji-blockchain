@@ -4,8 +4,8 @@ import click
 import pytest
 from click.testing import CliRunner, Result
 
-from replaceme.cmds.plotnft import validate_fee
-from replaceme.cmds.plotnft import create_cmd, show_cmd
+from goji.cmds.plotnft import validate_fee
+from goji.cmds.plotnft import create_cmd, show_cmd
 
 pytestmark = pytest.mark.skip("TODO: Works locally but fails on CI, needs to be fixed!")
 

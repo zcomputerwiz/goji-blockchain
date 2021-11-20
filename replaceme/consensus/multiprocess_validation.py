@@ -5,28 +5,28 @@ from concurrent.futures.process import ProcessPoolExecutor
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Sequence, Tuple, Union, Callable
 
-from replaceme.consensus.block_header_validation import validate_finished_header_block
-from replaceme.consensus.block_record import BlockRecord
-from replaceme.consensus.blockchain_interface import BlockchainInterface
-from replaceme.consensus.constants import ConsensusConstants
-from replaceme.consensus.cost_calculator import NPCResult
-from replaceme.consensus.difficulty_adjustment import get_next_sub_slot_iters_and_difficulty
-from replaceme.consensus.full_block_to_block_record import block_to_block_record
-from replaceme.consensus.get_block_challenge import get_block_challenge
-from replaceme.consensus.pot_iterations import calculate_iterations_quality, is_overflow_block
-from replaceme.full_node.mempool_check_conditions import get_name_puzzle_conditions
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.blockchain_format.sub_epoch_summary import SubEpochSummary
-from replaceme.types.full_block import FullBlock
-from replaceme.types.generator_types import BlockGenerator
-from replaceme.types.header_block import HeaderBlock
-from replaceme.types.unfinished_block import UnfinishedBlock
-from replaceme.util.block_cache import BlockCache
-from replaceme.util.errors import Err, ValidationError
-from replaceme.util.generator_tools import get_block_header, tx_removals_and_additions
-from replaceme.util.ints import uint16, uint64, uint32
-from replaceme.util.streamable import Streamable, dataclass_from_dict, streamable
+from goji.consensus.block_header_validation import validate_finished_header_block
+from goji.consensus.block_record import BlockRecord
+from goji.consensus.blockchain_interface import BlockchainInterface
+from goji.consensus.constants import ConsensusConstants
+from goji.consensus.cost_calculator import NPCResult
+from goji.consensus.difficulty_adjustment import get_next_sub_slot_iters_and_difficulty
+from goji.consensus.full_block_to_block_record import block_to_block_record
+from goji.consensus.get_block_challenge import get_block_challenge
+from goji.consensus.pot_iterations import calculate_iterations_quality, is_overflow_block
+from goji.full_node.mempool_check_conditions import get_name_puzzle_conditions
+from goji.types.blockchain_format.coin import Coin
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.blockchain_format.sub_epoch_summary import SubEpochSummary
+from goji.types.full_block import FullBlock
+from goji.types.generator_types import BlockGenerator
+from goji.types.header_block import HeaderBlock
+from goji.types.unfinished_block import UnfinishedBlock
+from goji.util.block_cache import BlockCache
+from goji.util.errors import Err, ValidationError
+from goji.util.generator_tools import get_block_header, tx_removals_and_additions
+from goji.util.ints import uint16, uint64, uint32
+from goji.util.streamable import Streamable, dataclass_from_dict, streamable
 
 log = logging.getLogger(__name__)
 

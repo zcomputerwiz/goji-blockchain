@@ -1,12 +1,12 @@
 from dataclasses import dataclass
 from typing import List, Optional
 
-from replaceme.consensus.condition_costs import ConditionCost
-from replaceme.types.blockchain_format.program import SerializedProgram
-from replaceme.types.condition_opcodes import ConditionOpcode
-from replaceme.types.name_puzzle_condition import NPC
-from replaceme.util.ints import uint64, uint16
-from replaceme.util.streamable import Streamable, streamable
+from goji.consensus.condition_costs import ConditionCost
+from goji.types.blockchain_format.program import SerializedProgram
+from goji.types.condition_opcodes import ConditionOpcode
+from goji.types.name_puzzle_condition import NPC
+from goji.util.ints import uint64, uint16
+from goji.util.streamable import Streamable, streamable
 
 
 @dataclass(frozen=True)

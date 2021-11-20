@@ -1,12 +1,12 @@
 import pathlib
 from typing import Dict
 
-from replaceme.introducer.introducer import Introducer
-from replaceme.introducer.introducer_api import IntroducerAPI
-from replaceme.server.outbound_message import NodeType
-from replaceme.server.start_service import run_service
-from replaceme.util.config import load_config_cli
-from replaceme.util.default_root import DEFAULT_ROOT_PATH
+from goji.introducer.introducer import Introducer
+from goji.introducer.introducer_api import IntroducerAPI
+from goji.server.outbound_message import NodeType
+from goji.server.start_service import run_service
+from goji.util.config import load_config_cli
+from goji.util.default_root import DEFAULT_ROOT_PATH
 
 # See: https://bugs.python.org/issue29288
 "".encode("idna")

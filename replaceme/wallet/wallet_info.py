@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import List
 
-from replaceme.util.ints import uint8, uint32
-from replaceme.util.streamable import Streamable, streamable
+from goji.util.ints import uint8, uint32
+from goji.util.streamable import Streamable, streamable
 
 
 @dataclass(frozen=True)

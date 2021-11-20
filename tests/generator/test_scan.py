@@ -1,9 +1,9 @@
 from unittest import TestCase
-from replaceme.full_node.bundle_tools import (
+from goji.full_node.bundle_tools import (
     match_standard_transaction_at_any_index,
     match_standard_transaction_exactly_and_return_pubkey,
 )
-from replaceme.util.byte_types import hexstr_to_bytes
+from goji.util.byte_types import hexstr_to_bytes
 
 
 gen1 = hexstr_to_bytes(

@@ -1,6 +1,6 @@
 import pytest
-from replaceme.util.misc import format_bytes
-from replaceme.util.misc import format_minutes
+from goji.util.misc import format_bytes
+from goji.util.misc import format_minutes
 
 
 class TestMisc:

@@ -1,24 +1,24 @@
 from typing import Dict, List, Optional, Tuple, Any
 
-from replaceme.consensus.block_record import BlockRecord
-from replaceme.full_node.signage_point import SignagePoint
-from replaceme.rpc.rpc_client import RpcClient
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.coin_record import CoinRecord
-from replaceme.types.coin_spend import CoinSpend
-from replaceme.types.end_of_slot_bundle import EndOfSubSlotBundle
-from replaceme.types.full_block import FullBlock
-from replaceme.types.spend_bundle import SpendBundle
-from replaceme.types.unfinished_header_block import UnfinishedHeaderBlock
-from replaceme.util.byte_types import hexstr_to_bytes
-from replaceme.util.ints import uint32, uint64
+from goji.consensus.block_record import BlockRecord
+from goji.full_node.signage_point import SignagePoint
+from goji.rpc.rpc_client import RpcClient
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.coin_record import CoinRecord
+from goji.types.coin_spend import CoinSpend
+from goji.types.end_of_slot_bundle import EndOfSubSlotBundle
+from goji.types.full_block import FullBlock
+from goji.types.spend_bundle import SpendBundle
+from goji.types.unfinished_header_block import UnfinishedHeaderBlock
+from goji.util.byte_types import hexstr_to_bytes
+from goji.util.ints import uint32, uint64
 
 
 class FullNodeRpcClient(RpcClient):
     """
-    Client to Replaceme RPC, connects to a local full node. Uses HTTP/JSON, and converts back from
+    Client to Goji RPC, connects to a local full node. Uses HTTP/JSON, and converts back from
     JSON into native python objects before returning. All api calls use POST requests.
-    Note that this is not the same as the peer protocol, or wallet protocol (which run Replaceme's
+    Note that this is not the same as the peer protocol, or wallet protocol (which run Goji's
     protocol on top of TCP), it's a separate protocol on top of HTTP thats provides easy access
     to the full node.
     """

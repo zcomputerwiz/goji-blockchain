@@ -1,5 +1,5 @@
 from pathlib import Path
-from replaceme.util.db_wrapper import DBWrapper
+from goji.util.db_wrapper import DBWrapper
 import tempfile
 import aiosqlite
 

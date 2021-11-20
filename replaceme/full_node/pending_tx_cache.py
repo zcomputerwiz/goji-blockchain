@@ -1,7 +1,7 @@
 from typing import Dict
 
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.mempool_item import MempoolItem
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.mempool_item import MempoolItem
 
 
 class PendingTxCache:

@@ -3,14 +3,14 @@ from typing import Dict, List, Optional, Tuple
 
 import aiosqlite
 
-from replaceme.consensus.block_record import BlockRecord
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.blockchain_format.sub_epoch_summary import SubEpochSummary
-from replaceme.types.full_block import FullBlock
-from replaceme.types.weight_proof import SubEpochChallengeSegment, SubEpochSegments
-from replaceme.util.db_wrapper import DBWrapper
-from replaceme.util.ints import uint32
-from replaceme.util.lru_cache import LRUCache
+from goji.consensus.block_record import BlockRecord
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.blockchain_format.sub_epoch_summary import SubEpochSummary
+from goji.types.full_block import FullBlock
+from goji.types.weight_proof import SubEpochChallengeSegment, SubEpochSegments
+from goji.util.db_wrapper import DBWrapper
+from goji.util.ints import uint32
+from goji.util.lru_cache import LRUCache
 
 log = logging.getLogger(__name__)
 

@@ -6,9 +6,9 @@ from pathlib import Path
 import aiosqlite
 import pytest
 
-from replaceme.server.address_manager import AddressManager, ExtendedPeerInfo
-from replaceme.server.address_manager_store import AddressManagerStore
-from replaceme.types.peer_info import PeerInfo, TimestampedPeerInfo
+from goji.server.address_manager import AddressManager, ExtendedPeerInfo
+from goji.server.address_manager_store import AddressManagerStore
+from goji.types.peer_info import PeerInfo, TimestampedPeerInfo
 
 
 @pytest.fixture(scope="module")

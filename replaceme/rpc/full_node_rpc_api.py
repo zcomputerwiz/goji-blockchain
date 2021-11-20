@@ -1,27 +1,27 @@
 from typing import Any, Callable, Dict, List, Optional
 
-from replaceme.consensus.block_record import BlockRecord
-from replaceme.consensus.pos_quality import UI_ACTUAL_SPACE_CONSTANT_FACTOR
-from replaceme.full_node.full_node import FullNode
-from replaceme.full_node.mempool_check_conditions import get_puzzle_and_solution_for_coin
-from replaceme.types.blockchain_format.program import Program, SerializedProgram
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.coin_record import CoinRecord
-from replaceme.types.coin_spend import CoinSpend
-from replaceme.types.full_block import FullBlock
-from replaceme.types.generator_types import BlockGenerator
-from replaceme.types.mempool_inclusion_status import MempoolInclusionStatus
-from replaceme.types.spend_bundle import SpendBundle
-from replaceme.types.unfinished_header_block import UnfinishedHeaderBlock
-from replaceme.util.byte_types import hexstr_to_bytes
-from replaceme.util.ints import uint32, uint64, uint128
-from replaceme.util.ws_message import WsRpcMessage, create_payload_dict
+from goji.consensus.block_record import BlockRecord
+from goji.consensus.pos_quality import UI_ACTUAL_SPACE_CONSTANT_FACTOR
+from goji.full_node.full_node import FullNode
+from goji.full_node.mempool_check_conditions import get_puzzle_and_solution_for_coin
+from goji.types.blockchain_format.program import Program, SerializedProgram
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.coin_record import CoinRecord
+from goji.types.coin_spend import CoinSpend
+from goji.types.full_block import FullBlock
+from goji.types.generator_types import BlockGenerator
+from goji.types.mempool_inclusion_status import MempoolInclusionStatus
+from goji.types.spend_bundle import SpendBundle
+from goji.types.unfinished_header_block import UnfinishedHeaderBlock
+from goji.util.byte_types import hexstr_to_bytes
+from goji.util.ints import uint32, uint64, uint128
+from goji.util.ws_message import WsRpcMessage, create_payload_dict
 
 
 class FullNodeRpcApi:
     def __init__(self, service: FullNode):
         self.service = service
-        self.service_name = "replaceme_full_node"
+        self.service_name = "goji_full_node"
         self.cached_blockchain_state: Optional[Dict] = None
 
     def get_routes(self) -> Dict[str, Callable]:

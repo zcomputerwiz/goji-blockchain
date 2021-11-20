@@ -1,14 +1,14 @@
 from dataclasses import dataclass
 from typing import List, Optional, Tuple
 
-from replaceme.consensus.coinbase import pool_parent_id, farmer_parent_id
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.mempool_inclusion_status import MempoolInclusionStatus
-from replaceme.types.spend_bundle import SpendBundle
-from replaceme.util.ints import uint8, uint32, uint64
-from replaceme.util.streamable import Streamable, streamable
-from replaceme.wallet.util.transaction_type import TransactionType
+from goji.consensus.coinbase import pool_parent_id, farmer_parent_id
+from goji.types.blockchain_format.coin import Coin
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.mempool_inclusion_status import MempoolInclusionStatus
+from goji.types.spend_bundle import SpendBundle
+from goji.util.ints import uint8, uint32, uint64
+from goji.util.streamable import Streamable, streamable
+from goji.wallet.util.transaction_type import TransactionType
 
 
 @dataclass(frozen=True)

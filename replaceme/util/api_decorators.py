@@ -2,7 +2,7 @@ import functools
 import logging
 from inspect import signature
 
-from replaceme.util.streamable import Streamable
+from goji.util.streamable import Streamable
 
 log = logging.getLogger(__name__)
 

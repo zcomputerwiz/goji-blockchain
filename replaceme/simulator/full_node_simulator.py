@@ -1,12 +1,12 @@
 from typing import List, Optional
 
-from replaceme.consensus.block_record import BlockRecord
-from replaceme.full_node.full_node_api import FullNodeAPI
-from replaceme.protocols.full_node_protocol import RespondBlock
-from replaceme.simulator.simulator_protocol import FarmNewBlockProtocol, ReorgProtocol
-from replaceme.types.full_block import FullBlock
-from replaceme.util.api_decorators import api_request
-from replaceme.util.ints import uint8
+from goji.consensus.block_record import BlockRecord
+from goji.full_node.full_node_api import FullNodeAPI
+from goji.protocols.full_node_protocol import RespondBlock
+from goji.simulator.simulator_protocol import FarmNewBlockProtocol, ReorgProtocol
+from goji.types.full_block import FullBlock
+from goji.util.api_decorators import api_request
+from goji.util.ints import uint8
 
 
 class FullNodeSimulator(FullNodeAPI):

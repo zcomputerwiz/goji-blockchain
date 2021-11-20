@@ -1,12 +1,12 @@
 from typing import Dict, Optional, Tuple
 
-from replaceme.types.blockchain_format.program import Program, INFINITE_COST
-from replaceme.types.condition_opcodes import ConditionOpcode
-from replaceme.types.spend_bundle import SpendBundle
-from replaceme.util.condition_tools import conditions_dict_for_solution
-from replaceme.wallet.cc_wallet import cc_utils
-from replaceme.wallet.trade_record import TradeRecord
-from replaceme.wallet.trading.trade_status import TradeStatus
+from goji.types.blockchain_format.program import Program, INFINITE_COST
+from goji.types.condition_opcodes import ConditionOpcode
+from goji.types.spend_bundle import SpendBundle
+from goji.util.condition_tools import conditions_dict_for_solution
+from goji.wallet.cc_wallet import cc_utils
+from goji.wallet.trade_record import TradeRecord
+from goji.wallet.trading.trade_status import TradeStatus
 
 
 def trade_status_ui_string(status: TradeStatus):
@@ -83,10 +83,10 @@ def get_discrepancies_for_spend_bundle(
                 coin_amount = coinsol.coin.amount
                 out_amount = get_output_amount_for_puzzle_and_solution(puzzle, solution)
                 diff = coin_amount - out_amount
-                if "replaceme" in cc_discrepancies:
-                    cc_discrepancies["replaceme"] = cc_discrepancies["replaceme"] + diff
+                if "goji" in cc_discrepancies:
+                    cc_discrepancies["goji"] = cc_discrepancies["goji"] + diff
                 else:
-                    cc_discrepancies["replaceme"] = diff
+                    cc_discrepancies["goji"] = diff
 
         return True, cc_discrepancies, None
     except Exception as e:

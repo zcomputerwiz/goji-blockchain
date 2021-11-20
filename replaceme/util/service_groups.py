@@ -1,19 +1,19 @@
 from typing import KeysView, Generator
 
 SERVICES_FOR_GROUP = {
-    "all": "replaceme_harvester replaceme_timelord_launcher replaceme_timelord replaceme_farmer replaceme_full_node replaceme_wallet".split(),
-    "node": "replaceme_full_node".split(),
-    "harvester": "replaceme_harvester".split(),
-    "farmer": "replaceme_harvester replaceme_farmer replaceme_full_node replaceme_wallet".split(),
-    "farmer-no-wallet": "replaceme_harvester replaceme_farmer replaceme_full_node".split(),
-    "farmer-only": "replaceme_farmer".split(),
-    "timelord": "replaceme_timelord_launcher replaceme_timelord replaceme_full_node".split(),
-    "timelord-only": "replaceme_timelord".split(),
-    "timelord-launcher-only": "replaceme_timelord_launcher".split(),
-    "wallet": "replaceme_wallet replaceme_full_node".split(),
-    "wallet-only": "replaceme_wallet".split(),
-    "introducer": "replaceme_introducer".split(),
-    "simulator": "replaceme_full_node_simulator".split(),
+    "all": "goji_harvester goji_timelord_launcher goji_timelord goji_farmer goji_full_node goji_wallet".split(),
+    "node": "goji_full_node".split(),
+    "harvester": "goji_harvester".split(),
+    "farmer": "goji_harvester goji_farmer goji_full_node goji_wallet".split(),
+    "farmer-no-wallet": "goji_harvester goji_farmer goji_full_node".split(),
+    "farmer-only": "goji_farmer".split(),
+    "timelord": "goji_timelord_launcher goji_timelord goji_full_node".split(),
+    "timelord-only": "goji_timelord".split(),
+    "timelord-launcher-only": "goji_timelord_launcher".split(),
+    "wallet": "goji_wallet goji_full_node".split(),
+    "wallet-only": "goji_wallet".split(),
+    "introducer": "goji_introducer".split(),
+    "simulator": "goji_full_node_simulator".split(),
 }
 
 

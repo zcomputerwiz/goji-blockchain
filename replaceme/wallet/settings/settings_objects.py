@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from replaceme.util.streamable import Streamable, streamable
+from goji.util.streamable import Streamable, streamable
 
 
 @dataclass(frozen=True)

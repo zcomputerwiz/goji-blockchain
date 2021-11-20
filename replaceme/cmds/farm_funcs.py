@@ -2,17 +2,17 @@ from typing import Any, Dict, List, Optional
 
 import aiohttp
 
-from replaceme.cmds.units import units
-from replaceme.consensus.block_record import BlockRecord
-from replaceme.rpc.farmer_rpc_client import FarmerRpcClient
-from replaceme.rpc.full_node_rpc_client import FullNodeRpcClient
-from replaceme.rpc.wallet_rpc_client import WalletRpcClient
-from replaceme.util.config import load_config
-from replaceme.util.default_root import DEFAULT_ROOT_PATH
-from replaceme.util.ints import uint16
-from replaceme.util.misc import format_bytes
-from replaceme.util.misc import format_minutes
-from replaceme.util.network import is_localhost
+from goji.cmds.units import units
+from goji.consensus.block_record import BlockRecord
+from goji.rpc.farmer_rpc_client import FarmerRpcClient
+from goji.rpc.full_node_rpc_client import FullNodeRpcClient
+from goji.rpc.wallet_rpc_client import WalletRpcClient
+from goji.util.config import load_config
+from goji.util.default_root import DEFAULT_ROOT_PATH
+from goji.util.ints import uint16
+from goji.util.misc import format_bytes
+from goji.util.misc import format_minutes
+from goji.util.network import is_localhost
 
 SECONDS_PER_BLOCK = (24 * 3600) / 4608
 
@@ -212,9 +212,9 @@ async def summary(
         print("Farming")
 
     if amounts is not None:
-        print(f"Total replaceme farmed: {amounts['farmed_amount'] / units['replaceme']}")
-        print(f"User transaction fees: {amounts['fee_amount'] / units['replaceme']}")
-        print(f"Block rewards: {(amounts['farmer_reward_amount'] + amounts['pool_reward_amount']) / units['replaceme']}")
+        print(f"Total goji farmed: {amounts['farmed_amount'] / units['goji']}")
+        print(f"User transaction fees: {amounts['fee_amount'] / units['goji']}")
+        print(f"Block rewards: {(amounts['farmer_reward_amount'] + amounts['pool_reward_amount']) / units['goji']}")
         print(f"Last height farmed: {amounts['last_height_farmed']}")
 
     class PlotStats:
@@ -273,8 +273,8 @@ async def summary(
 
     if amounts is None:
         if wallet_not_running:
-            print("For details on farmed rewards and fees you should run 'replaceme start wallet' and 'replaceme wallet show'")
+            print("For details on farmed rewards and fees you should run 'goji start wallet' and 'goji wallet show'")
         elif wallet_not_ready:
-            print("For details on farmed rewards and fees you should run 'replaceme wallet show'")
+            print("For details on farmed rewards and fees you should run 'goji wallet show'")
     else:
-        print("Note: log into your key using 'replaceme wallet show' to see rewards for each key")
+        print("Note: log into your key using 'goji wallet show' to see rewards for each key")

@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import List
 
-from replaceme.types.condition_opcodes import ConditionOpcode
-from replaceme.util.streamable import Streamable, streamable
+from goji.types.condition_opcodes import ConditionOpcode
+from goji.util.streamable import Streamable, streamable
 
 
 @dataclass(frozen=True)

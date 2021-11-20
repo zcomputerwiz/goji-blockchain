@@ -25,7 +25,7 @@ config/keys.yaml
 config/plots.yaml
 
 # Bundled code
-replaceme-blockchain.tar.gz.tar.gz
+goji-blockchain.tar.gz.tar.gz
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -66,7 +66,7 @@ activate
 .idea
 
 # Packaging
-replaceme-blockchain.tar.gz
+goji-blockchain.tar.gz
 
 # Timelord utilities
 vdf_bench
@@ -88,13 +88,13 @@ main.sym
 *.recompiled
 
 # Dev config react
-# replaceme-blockchain-gui/src/dev_config.js
+# goji-blockchain-gui/src/dev_config.js
 # React built app
-replaceme-blockchain-gui/.eslintcache
-replaceme-blockchain-gui/build
+goji-blockchain-gui/.eslintcache
+goji-blockchain-gui/build
 build_scripts/dist
 build_scripts/*.Dmg
-replaceme-blockchain-gui/src/locales/_build
+goji-blockchain-gui/src/locales/_build
 build_scripts\win_build
 build_scripts/win_build
 win_code_sign_cert.p12

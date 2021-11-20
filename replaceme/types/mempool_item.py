@@ -1,13 +1,13 @@
 from dataclasses import dataclass
 from typing import List
 
-from replaceme.consensus.cost_calculator import NPCResult
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.blockchain_format.program import SerializedProgram
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.spend_bundle import SpendBundle
-from replaceme.util.ints import uint64
-from replaceme.util.streamable import Streamable, streamable
+from goji.consensus.cost_calculator import NPCResult
+from goji.types.blockchain_format.coin import Coin
+from goji.types.blockchain_format.program import SerializedProgram
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.spend_bundle import SpendBundle
+from goji.util.ints import uint64
+from goji.util.streamable import Streamable, streamable
 
 
 @dataclass(frozen=True)

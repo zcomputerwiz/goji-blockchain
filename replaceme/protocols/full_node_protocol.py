@@ -1,16 +1,16 @@
 from dataclasses import dataclass
 from typing import List, Optional
 
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.blockchain_format.vdf import VDFInfo, VDFProof
-from replaceme.types.end_of_slot_bundle import EndOfSubSlotBundle
-from replaceme.types.full_block import FullBlock
-from replaceme.types.peer_info import TimestampedPeerInfo
-from replaceme.types.spend_bundle import SpendBundle
-from replaceme.types.unfinished_block import UnfinishedBlock
-from replaceme.types.weight_proof import WeightProof
-from replaceme.util.ints import uint8, uint32, uint64, uint128
-from replaceme.util.streamable import Streamable, streamable
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.blockchain_format.vdf import VDFInfo, VDFProof
+from goji.types.end_of_slot_bundle import EndOfSubSlotBundle
+from goji.types.full_block import FullBlock
+from goji.types.peer_info import TimestampedPeerInfo
+from goji.types.spend_bundle import SpendBundle
+from goji.types.unfinished_block import UnfinishedBlock
+from goji.types.weight_proof import WeightProof
+from goji.util.ints import uint8, uint32, uint64, uint128
+from goji.util.streamable import Streamable, streamable
 
 """
 Protocol between full nodes.

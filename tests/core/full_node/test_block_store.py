@@ -7,11 +7,11 @@ from pathlib import Path
 import aiosqlite
 import pytest
 
-from replaceme.consensus.blockchain import Blockchain
-from replaceme.full_node.block_store import BlockStore
-from replaceme.full_node.coin_store import CoinStore
-from replaceme.full_node.hint_store import HintStore
-from replaceme.util.db_wrapper import DBWrapper
+from goji.consensus.blockchain import Blockchain
+from goji.full_node.block_store import BlockStore
+from goji.full_node.coin_store import CoinStore
+from goji.full_node.hint_store import HintStore
+from goji.util.db_wrapper import DBWrapper
 from tests.setup_nodes import bt, test_constants
 
 log = logging.getLogger(__name__)

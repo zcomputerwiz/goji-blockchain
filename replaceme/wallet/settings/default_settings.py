@@ -1,4 +1,4 @@
-from replaceme.wallet.settings.settings_objects import BackupInitialized
+from goji.wallet.settings.settings_objects import BackupInitialized
 
 default_backup_initialized = BackupInitialized(False, False, False, True)
 

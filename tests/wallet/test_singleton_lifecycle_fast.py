@@ -4,15 +4,15 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 from blspy import G1Element, G2Element
 from clvm_tools import binutils
 
-from replaceme.types.blockchain_format.program import Program, SerializedProgram
-from replaceme.types.announcement import Announcement
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.coin_spend import CoinSpend
-from replaceme.types.spend_bundle import SpendBundle
-from replaceme.util.condition_tools import ConditionOpcode
-from replaceme.util.ints import uint64
-from replaceme.wallet.puzzles.load_clvm import load_clvm
+from goji.types.blockchain_format.program import Program, SerializedProgram
+from goji.types.announcement import Announcement
+from goji.types.blockchain_format.coin import Coin
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.coin_spend import CoinSpend
+from goji.types.spend_bundle import SpendBundle
+from goji.util.condition_tools import ConditionOpcode
+from goji.util.ints import uint64
+from goji.wallet.puzzles.load_clvm import load_clvm
 
 from tests.clvm.coin_store import BadSpendBundleError, CoinStore, CoinTimestamp
 
@@ -120,7 +120,7 @@ def solve_anyone_can_spend_with_padding(
 def solve_singleton(solver: Solver, puzzle_db: PuzzleDB, args: List[Program], kwargs: Dict) -> Program:
     """
     `lineage_proof`: a `Program` that proves the parent is also a singleton (or the launcher).
-    `coin_amount`: a necessarily-odd value of mojos in this coin.
+    `coin_amount`: a necessarily-odd value of mojis in this coin.
     """
     singleton_struct, inner_puzzle = args
     inner_solution = solver.solve(puzzle_db, inner_puzzle, **kwargs)

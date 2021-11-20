@@ -3,11 +3,11 @@ from typing import Optional
 
 from blspy import G2Element
 
-from replaceme.types.blockchain_format.pool_target import PoolTarget
-from replaceme.types.blockchain_format.proof_of_space import ProofOfSpace
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.util.ints import uint8, uint32, uint64
-from replaceme.util.streamable import Streamable, streamable
+from goji.types.blockchain_format.pool_target import PoolTarget
+from goji.types.blockchain_format.proof_of_space import ProofOfSpace
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.util.ints import uint8, uint32, uint64
+from goji.util.streamable import Streamable, streamable
 
 """
 Protocol between farmer and full node.

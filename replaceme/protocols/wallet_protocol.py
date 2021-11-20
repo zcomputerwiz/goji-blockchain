@@ -1,13 +1,13 @@
 from dataclasses import dataclass
 from typing import List, Optional, Tuple
 
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.blockchain_format.program import Program
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.header_block import HeaderBlock
-from replaceme.types.spend_bundle import SpendBundle
-from replaceme.util.ints import uint8, uint32, uint128
-from replaceme.util.streamable import Streamable, streamable
+from goji.types.blockchain_format.coin import Coin
+from goji.types.blockchain_format.program import Program
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.header_block import HeaderBlock
+from goji.types.spend_bundle import SpendBundle
+from goji.util.ints import uint8, uint32, uint128
+from goji.util.streamable import Streamable, streamable
 
 """
 Protocol between wallet (SPV node) and full node.

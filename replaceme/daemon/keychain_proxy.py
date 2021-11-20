@@ -2,24 +2,24 @@ import logging
 import ssl
 
 from blspy import AugSchemeMPL, PrivateKey
-from replaceme.cmds.init_funcs import check_keys
-from replaceme.daemon.client import DaemonProxy
-from replaceme.daemon.keychain_server import (
+from goji.cmds.init_funcs import check_keys
+from goji.daemon.client import DaemonProxy
+from goji.daemon.keychain_server import (
     KEYCHAIN_ERR_KEYERROR,
     KEYCHAIN_ERR_LOCKED,
     KEYCHAIN_ERR_MALFORMED_REQUEST,
     KEYCHAIN_ERR_NO_KEYS,
 )
-from replaceme.server.server import ssl_context_for_client
-from replaceme.util.config import load_config
-from replaceme.util.keychain import (
+from goji.server.server import ssl_context_for_client
+from goji.util.config import load_config
+from goji.util.keychain import (
     Keychain,
     KeyringIsLocked,
     bytes_to_mnemonic,
     mnemonic_to_seed,
     supports_keyring_passphrase,
 )
-from replaceme.util.ws_message import WsRpcMessage
+from goji.util.ws_message import WsRpcMessage
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 

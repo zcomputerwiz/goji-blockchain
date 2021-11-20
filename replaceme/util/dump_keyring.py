@@ -5,10 +5,10 @@ import colorama
 import threading
 import yaml
 
-from replaceme.cmds.passphrase_funcs import prompt_for_passphrase, read_passphrase_from_file
-from replaceme.util.default_root import DEFAULT_KEYS_ROOT_PATH
-from replaceme.util.file_keyring import FileKeyring
-from replaceme.util.keyring_wrapper import DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE, KeyringWrapper
+from goji.cmds.passphrase_funcs import prompt_for_passphrase, read_passphrase_from_file
+from goji.util.default_root import DEFAULT_KEYS_ROOT_PATH
+from goji.util.file_keyring import FileKeyring
+from goji.util.keyring_wrapper import DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE, KeyringWrapper
 from cryptography.exceptions import InvalidTag
 from io import TextIOWrapper
 from pathlib import Path

@@ -8,43 +8,43 @@ from typing import Dict, List, Optional, Set, Tuple, Union
 
 from clvm.casts import int_from_bytes
 
-from replaceme.consensus.block_body_validation import validate_block_body
-from replaceme.consensus.block_header_validation import validate_finished_header_block, validate_unfinished_header_block
-from replaceme.consensus.block_record import BlockRecord
-from replaceme.consensus.blockchain_interface import BlockchainInterface
-from replaceme.consensus.constants import ConsensusConstants
-from replaceme.consensus.cost_calculator import NPCResult
-from replaceme.consensus.difficulty_adjustment import get_next_sub_slot_iters_and_difficulty
-from replaceme.consensus.find_fork_point import find_fork_point_in_chain
-from replaceme.consensus.full_block_to_block_record import block_to_block_record
-from replaceme.consensus.multiprocess_validation import (
+from goji.consensus.block_body_validation import validate_block_body
+from goji.consensus.block_header_validation import validate_finished_header_block, validate_unfinished_header_block
+from goji.consensus.block_record import BlockRecord
+from goji.consensus.blockchain_interface import BlockchainInterface
+from goji.consensus.constants import ConsensusConstants
+from goji.consensus.cost_calculator import NPCResult
+from goji.consensus.difficulty_adjustment import get_next_sub_slot_iters_and_difficulty
+from goji.consensus.find_fork_point import find_fork_point_in_chain
+from goji.consensus.full_block_to_block_record import block_to_block_record
+from goji.consensus.multiprocess_validation import (
     PreValidationResult,
     pre_validate_blocks_multiprocessing,
     _run_generator,
 )
-from replaceme.full_node.block_store import BlockStore
-from replaceme.full_node.coin_store import CoinStore
-from replaceme.full_node.hint_store import HintStore
-from replaceme.full_node.mempool_check_conditions import get_name_puzzle_conditions
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.blockchain_format.sub_epoch_summary import SubEpochSummary
-from replaceme.types.blockchain_format.vdf import VDFInfo
-from replaceme.types.coin_record import CoinRecord
-from replaceme.types.condition_opcodes import ConditionOpcode
-from replaceme.types.end_of_slot_bundle import EndOfSubSlotBundle
-from replaceme.types.full_block import FullBlock
-from replaceme.types.generator_types import BlockGenerator, GeneratorArg
-from replaceme.types.header_block import HeaderBlock
-from replaceme.types.unfinished_block import UnfinishedBlock
-from replaceme.types.unfinished_header_block import UnfinishedHeaderBlock
-from replaceme.types.weight_proof import SubEpochChallengeSegment
-from replaceme.util.errors import Err, ConsensusError
-from replaceme.util.generator_tools import get_block_header, tx_removals_and_additions
-from replaceme.util.ints import uint16, uint32, uint64, uint128
-from replaceme.util.streamable import recurse_jsonify
-from replaceme.util.default_root import DEFAULT_ROOT_PATH
-from replaceme.util.config import load_config
+from goji.full_node.block_store import BlockStore
+from goji.full_node.coin_store import CoinStore
+from goji.full_node.hint_store import HintStore
+from goji.full_node.mempool_check_conditions import get_name_puzzle_conditions
+from goji.types.blockchain_format.coin import Coin
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.blockchain_format.sub_epoch_summary import SubEpochSummary
+from goji.types.blockchain_format.vdf import VDFInfo
+from goji.types.coin_record import CoinRecord
+from goji.types.condition_opcodes import ConditionOpcode
+from goji.types.end_of_slot_bundle import EndOfSubSlotBundle
+from goji.types.full_block import FullBlock
+from goji.types.generator_types import BlockGenerator, GeneratorArg
+from goji.types.header_block import HeaderBlock
+from goji.types.unfinished_block import UnfinishedBlock
+from goji.types.unfinished_header_block import UnfinishedHeaderBlock
+from goji.types.weight_proof import SubEpochChallengeSegment
+from goji.util.errors import Err, ConsensusError
+from goji.util.generator_tools import get_block_header, tx_removals_and_additions
+from goji.util.ints import uint16, uint32, uint64, uint128
+from goji.util.streamable import recurse_jsonify
+from goji.util.default_root import DEFAULT_ROOT_PATH
+from goji.util.config import load_config
 
 log = logging.getLogger(__name__)
 

@@ -2,15 +2,15 @@ import asyncio
 
 import pytest
 
-from replaceme.rpc.wallet_rpc_api import WalletRpcApi
-from replaceme.simulator.simulator_protocol import FarmNewBlockProtocol
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.mempool_inclusion_status import MempoolInclusionStatus
-from replaceme.types.peer_info import PeerInfo
-from replaceme.util.bech32m import encode_puzzle_hash
-from replaceme.util.ints import uint16
-from replaceme.wallet.util.wallet_types import WalletType
+from goji.rpc.wallet_rpc_api import WalletRpcApi
+from goji.simulator.simulator_protocol import FarmNewBlockProtocol
+from goji.types.blockchain_format.coin import Coin
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.mempool_inclusion_status import MempoolInclusionStatus
+from goji.types.peer_info import PeerInfo
+from goji.util.bech32m import encode_puzzle_hash
+from goji.util.ints import uint16
+from goji.wallet.util.wallet_types import WalletType
 from tests.setup_nodes import self_hostname, setup_simulators_and_wallets
 from tests.time_out_assert import time_out_assert
 from tests.wallet.sync.test_wallet_sync import wallet_height_at_least
@@ -139,7 +139,7 @@ class TestRLWallet:
         assert await wallet.get_confirmed_balance() == fund_owners_initial_balance - 101
         assert await check_balance(api_user, user_wallet_id) == 100
         receiving_wallet = wallet_node_2.wallet_state_manager.main_wallet
-        address = encode_puzzle_hash(await receiving_wallet.get_new_puzzlehash(), "xch")
+        address = encode_puzzle_hash(await receiving_wallet.get_new_puzzlehash(), "xgj")
         assert await receiving_wallet.get_spendable_balance() == 0
         val = await api_user.send_transaction({"wallet_id": user_wallet_id, "amount": 3, "fee": 2, "address": address})
         await asyncio.sleep(2)
@@ -160,7 +160,7 @@ class TestRLWallet:
         await time_out_assert(15, wallet_height_at_least, True, wallet_node, 68)
         assert await check_balance(api_user, user_wallet_id) == 195
         # test spending
-        puzzle_hash = encode_puzzle_hash(await receiving_wallet.get_new_puzzlehash(), "xch")
+        puzzle_hash = encode_puzzle_hash(await receiving_wallet.get_new_puzzlehash(), "xgj")
         val = await api_user.send_transaction(
             {"wallet_id": user_wallet_id, "amount": 105, "fee": 0, "address": puzzle_hash}
         )

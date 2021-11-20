@@ -1,6 +1,6 @@
 import os
-from replaceme.plotters.bladebit import install_bladebit
-from replaceme.plotters.madmax import install_madmax
+from goji.plotters.bladebit import install_bladebit
+from goji.plotters.madmax import install_madmax
 
 
 def install_plotter(plotter, root_path):

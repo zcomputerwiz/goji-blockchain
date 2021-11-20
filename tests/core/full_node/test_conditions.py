@@ -15,17 +15,17 @@ from blspy import G2Element
 
 from clvm_tools.binutils import assemble
 
-from replaceme.consensus.blockchain import ReceiveBlockResult
-from replaceme.consensus.constants import ConsensusConstants
-from replaceme.types.announcement import Announcement
-from replaceme.types.blockchain_format.program import Program
-from replaceme.types.coin_record import CoinRecord
-from replaceme.types.coin_spend import CoinSpend
-from replaceme.types.condition_opcodes import ConditionOpcode
-from replaceme.types.full_block import FullBlock
-from replaceme.types.spend_bundle import SpendBundle
-from replaceme.util.errors import Err
-from replaceme.util.ints import uint32
+from goji.consensus.blockchain import ReceiveBlockResult
+from goji.consensus.constants import ConsensusConstants
+from goji.types.announcement import Announcement
+from goji.types.blockchain_format.program import Program
+from goji.types.coin_record import CoinRecord
+from goji.types.coin_spend import CoinSpend
+from goji.types.condition_opcodes import ConditionOpcode
+from goji.types.full_block import FullBlock
+from goji.types.spend_bundle import SpendBundle
+from goji.util.errors import Err
+from goji.util.ints import uint32
 from tests.block_tools import create_block_tools, test_constants
 from tests.util.keyring import TempKeyring
 

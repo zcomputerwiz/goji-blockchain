@@ -1,11 +1,11 @@
 from typing import List, Tuple
 
-from replaceme.full_node.mempool_check_conditions import get_name_puzzle_conditions
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.types.full_block import FullBlock
-from replaceme.types.generator_types import BlockGenerator
-from replaceme.util.generator_tools import additions_for_npc
+from goji.full_node.mempool_check_conditions import get_name_puzzle_conditions
+from goji.types.blockchain_format.coin import Coin
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.types.full_block import FullBlock
+from goji.types.generator_types import BlockGenerator
+from goji.util.generator_tools import additions_for_npc
 
 
 def run_and_get_removals_and_additions(

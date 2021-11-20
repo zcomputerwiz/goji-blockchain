@@ -3,11 +3,11 @@ from typing import List, Optional
 
 from blspy import G2Element
 
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.blockchain_format.pool_target import PoolTarget
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.util.ints import uint64
-from replaceme.util.streamable import Streamable, streamable
+from goji.types.blockchain_format.coin import Coin
+from goji.types.blockchain_format.pool_target import PoolTarget
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.util.ints import uint64
+from goji.util.streamable import Streamable, streamable
 
 
 @dataclass(frozen=True)

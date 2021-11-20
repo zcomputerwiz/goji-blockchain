@@ -1,7 +1,7 @@
 import unittest
 from blspy import AugSchemeMPL, G1Element
-from replaceme.util import cached_bls
-from replaceme.util.lru_cache import LRUCache
+from goji.util import cached_bls
+from goji.util.lru_cache import LRUCache
 
 
 class TestCachedBLS(unittest.TestCase):

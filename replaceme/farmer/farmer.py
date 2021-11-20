@@ -9,18 +9,18 @@ import traceback
 import aiohttp
 from blspy import AugSchemeMPL, G1Element, G2Element, PrivateKey
 
-import replaceme.server.ws_connection as ws  # lgtm [py/import-and-import-from]
-from replaceme.consensus.coinbase import create_puzzlehash_for_pk
-from replaceme.consensus.constants import ConsensusConstants
-from replaceme.daemon.keychain_proxy import (
+import goji.server.ws_connection as ws  # lgtm [py/import-and-import-from]
+from goji.consensus.coinbase import create_puzzlehash_for_pk
+from goji.consensus.constants import ConsensusConstants
+from goji.daemon.keychain_proxy import (
     KeychainProxy,
     KeychainProxyConnectionFailure,
     connect_to_keychain_and_validate,
     wrap_local_keychain,
 )
-from replaceme.pools.pool_config import PoolWalletConfig, load_pool_config
-from replaceme.protocols import farmer_protocol, harvester_protocol
-from replaceme.protocols.pool_protocol import (
+from goji.pools.pool_config import PoolWalletConfig, load_pool_config
+from goji.protocols import farmer_protocol, harvester_protocol
+from goji.protocols.pool_protocol import (
     ErrorResponse,
     get_current_authentication_token,
     GetFarmerResponse,
@@ -31,27 +31,27 @@ from replaceme.protocols.pool_protocol import (
     PutFarmerRequest,
     AuthenticationPayload,
 )
-from replaceme.protocols.protocol_message_types import ProtocolMessageTypes
-from replaceme.server.outbound_message import NodeType, make_msg
-from replaceme.server.server import ssl_context_for_root
-from replaceme.server.ws_connection import WSReplacemeConnection
-from replaceme.ssl.create_ssl import get_mozilla_ca_crt
-from replaceme.types.blockchain_format.proof_of_space import ProofOfSpace
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.util.bech32m import decode_puzzle_hash
-from replaceme.util.byte_types import hexstr_to_bytes
-from replaceme.util.config import load_config, save_config, config_path_for_filename
-from replaceme.util.hash import std_hash
-from replaceme.util.ints import uint8, uint16, uint32, uint64
-from replaceme.util.keychain import Keychain
-from replaceme.wallet.derive_keys import (
+from goji.protocols.protocol_message_types import ProtocolMessageTypes
+from goji.server.outbound_message import NodeType, make_msg
+from goji.server.server import ssl_context_for_root
+from goji.server.ws_connection import WSGojiConnection
+from goji.ssl.create_ssl import get_mozilla_ca_crt
+from goji.types.blockchain_format.proof_of_space import ProofOfSpace
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.util.bech32m import decode_puzzle_hash
+from goji.util.byte_types import hexstr_to_bytes
+from goji.util.config import load_config, save_config, config_path_for_filename
+from goji.util.hash import std_hash
+from goji.util.ints import uint8, uint16, uint32, uint64
+from goji.util.keychain import Keychain
+from goji.wallet.derive_keys import (
     master_sk_to_farmer_sk,
     master_sk_to_pool_sk,
     master_sk_to_wallet_sk,
     find_authentication_sk,
     find_owner_sk,
 )
-from replaceme.wallet.puzzles.singleton_top_layer import SINGLETON_MOD
+from goji.wallet.puzzles.singleton_top_layer import SINGLETON_MOD
 
 singleton_mod_hash = SINGLETON_MOD.get_tree_hash()
 
@@ -147,17 +147,17 @@ class Farmer:
         ]
 
         if len(self.get_public_keys()) == 0:
-            error_str = "No keys exist. Please run 'replaceme keys generate' or open the UI."
+            error_str = "No keys exist. Please run 'goji keys generate' or open the UI."
             raise RuntimeError(error_str)
 
         # This is the farmer configuration
-        self.farmer_target_encoded = self.config["xch_target_address"]
+        self.farmer_target_encoded = self.config["xgj_target_address"]
         self.farmer_target = decode_puzzle_hash(self.farmer_target_encoded)
 
         self.pool_public_keys = [G1Element.from_bytes(bytes.fromhex(pk)) for pk in self.config["pool_public_keys"]]
 
         # This is the self pooling configuration, which is only used for original self-pooled plots
-        self.pool_target_encoded = self.pool_config["xch_target_address"]
+        self.pool_target_encoded = self.pool_config["xgj_target_address"]
         self.pool_target = decode_puzzle_hash(self.pool_target_encoded)
         self.pool_sks_map: Dict = {}
         for key in self.get_private_keys():
@@ -166,7 +166,7 @@ class Farmer:
         assert len(self.farmer_target) == 32
         assert len(self.pool_target) == 32
         if len(self.pool_sks_map) == 0:
-            error_str = "No keys exist. Please run 'replaceme keys generate' or open the UI."
+            error_str = "No keys exist. Please run 'goji keys generate' or open the UI."
             raise RuntimeError(error_str)
 
         # The variables below are for use with an actual pool
@@ -197,7 +197,7 @@ class Farmer:
     def _set_state_changed_callback(self, callback: Callable):
         self.state_changed_callback = callback
 
-    async def on_connect(self, peer: WSReplacemeConnection):
+    async def on_connect(self, peer: WSGojiConnection):
         # Sends a handshake to the harvester
         self.state_changed("add_connection", {})
         handshake = harvester_protocol.HarvesterHandshake(
@@ -221,7 +221,7 @@ class Farmer:
             ErrorResponse(uint16(PoolErrorCode.REQUEST_FAILED.value), error_message).to_json_dict()
         )
 
-    def on_disconnect(self, connection: ws.WSReplacemeConnection):
+    def on_disconnect(self, connection: ws.WSGojiConnection):
         self.log.info(f"peer disconnected {connection.get_peer_logging()}")
         self.state_changed("close_connection", {})
 
@@ -534,11 +534,11 @@ class Farmer:
         if farmer_target_encoded is not None:
             self.farmer_target_encoded = farmer_target_encoded
             self.farmer_target = decode_puzzle_hash(farmer_target_encoded)
-            config["farmer"]["xch_target_address"] = farmer_target_encoded
+            config["farmer"]["xgj_target_address"] = farmer_target_encoded
         if pool_target_encoded is not None:
             self.pool_target_encoded = pool_target_encoded
             self.pool_target = decode_puzzle_hash(pool_target_encoded)
-            config["pool"]["xch_target_address"] = pool_target_encoded
+            config["pool"]["xgj_target_address"] = pool_target_encoded
         save_config(self._root_path, "config.yaml", config)
 
     async def set_payout_instructions(self, launcher_id: bytes32, payout_instructions: str):
@@ -634,7 +634,7 @@ class Farmer:
                     )
         return updated
 
-    async def get_cached_harvesters(self, connection: WSReplacemeConnection) -> HarvesterCacheEntry:
+    async def get_cached_harvesters(self, connection: WSGojiConnection) -> HarvesterCacheEntry:
         host_cache = self.harvester_cache.get(connection.peer_host)
         if host_cache is None:
             host_cache = {}

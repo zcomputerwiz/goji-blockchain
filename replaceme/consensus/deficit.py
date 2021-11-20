@@ -1,8 +1,8 @@
 from typing import Optional
 
-from replaceme.consensus.block_record import BlockRecord
-from replaceme.consensus.constants import ConsensusConstants
-from replaceme.util.ints import uint8, uint32
+from goji.consensus.block_record import BlockRecord
+from goji.consensus.constants import ConsensusConstants
+from goji.util.ints import uint8, uint32
 
 
 def calculate_deficit(

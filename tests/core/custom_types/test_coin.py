@@ -1,7 +1,7 @@
-from replaceme.types.blockchain_format.coin import Coin
-from replaceme.types.blockchain_format.sized_bytes import bytes32
-from replaceme.util.ints import uint64
-from replaceme.util.hash import std_hash
+from goji.types.blockchain_format.coin import Coin
+from goji.types.blockchain_format.sized_bytes import bytes32
+from goji.util.ints import uint64
+from goji.util.hash import std_hash
 import io
 
 
