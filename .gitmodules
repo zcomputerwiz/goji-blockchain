@@ -2,3 +2,6 @@
 	path = mozilla-ca
 	url = https://github.com/Chia-Network/mozilla-ca.git
         branch = main
+[submodule "goji-blockchain-gui"]
+	path = goji-blockchain-gui
+	url = https://github.com/zcomputerwiz/gojiv2-blockchain-gui
