@@ -121,7 +121,7 @@ logging: &logging
   log_filename: "log/debug.log"
   log_level: "INFO"  # Can be CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET
   log_maxfilesrotation: 7 #  Max files in rotation. Default value 7 if the key is not set
-    log_syslog: False  # If True, outputs to SysLog host and port specified
+  log_syslog: False  # If True, outputs to SysLog host and port specified
   log_syslog_host: "localhost"  # Send logging messages to a remote or local Unix syslog
   log_syslog_port: 514  # UDP port of the remote or local Unix syslog
 
@@ -208,7 +208,7 @@ farmer:
 # Don't run this unless you want to run VDF clients on the local machine.
 timelord_launcher:
   # The server where the VDF clients will connect to.
-    host: *self_hostname
+  host: *self_hostname
   port: 7000
   # Number of VDF client processes to keep alive in the local machine.
   process_count: 3
@@ -266,7 +266,7 @@ full_node:
   # The full node server (if run) will run on this port
   port: 7444
 
-    # controls the sync-to-disk behavior of the database connection. Can be one of:
+  # controls the sync-to-disk behavior of the database connection. Can be one of:
   # "on"    enables syncing to disk, minimizes risk of corrupting the DB in
   #         power-loss, disk failure or kernel panics
   # "full"  enables extra syncing to disk for additional safety from
@@ -299,7 +299,7 @@ full_node:
 
   # How often to initiate outbound connections to other full nodes.
   peer_connect_interval: 30
-    # How long to wait for a peer connection
+  # How long to wait for a peer connection
   peer_connect_timeout: 30
   # Accept peers until this number of connections
   target_peer_count: 80
@@ -339,14 +339,14 @@ full_node:
   dns_servers:
     - "dns-introducer.getgoji.net"
   farmer_peer:
-      host: *self_hostname
-      port: 7447
+    host: *self_hostname
+    port: 7447
   timelord_peer:
-      host: *self_hostname
-      port: 7446
+    host: *self_hostname
+    port: 7446
   introducer_peer:
-      host: introducer.getgoji.net  # Goji AWS introducer IPv4/IPv6
-      port: 7444
+    host: introducer.getgoji.net  # Goji AWS introducer IPv4/IPv6
+    port: 7444
   wallet_peer:
     host: *self_hostname
     port: 7449
