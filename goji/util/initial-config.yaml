@@ -228,8 +228,8 @@ timelord:
     ips_estimate:
       - 150000
   full_node_peer:
-      host: *self_hostname
-      port: 7444
+    host: *self_hostname
+    port: 7444
   # Maximum number of seconds allowed for a client to reconnect to the server.
   max_connection_time: 60
   # The ip and port where the TCP clients will connect.
@@ -266,7 +266,7 @@ full_node:
   # The full node server (if run) will run on this port
   port: 7444
 
-    # controls the sync-to-disk behavior of the database connection. Can be one of:
+  # controls the sync-to-disk behavior of the database connection. Can be one of:
   # "on"    enables syncing to disk, minimizes risk of corrupting the DB in
   #         power-loss, disk failure or kernel panics
   # "full"  enables extra syncing to disk for additional safety from
@@ -339,14 +339,14 @@ full_node:
   dns_servers:
     - "dns-introducer.getgoji.net"
   farmer_peer:
-      host: *self_hostname
-      port: 7447
+    host: *self_hostname
+    port: 7447
   timelord_peer:
-      host: *self_hostname
-      port: 7446
+    host: *self_hostname
+    port: 7446
   introducer_peer:
-      host: introducer.getgoji.net  # Goji AWS introducer IPv4/IPv6
-      port: 7444
+    host: introducer.getgoji.net  # Goji AWS introducer IPv4/IPv6
+    port: 7444
   wallet_peer:
     host: *self_hostname
     port: 7449
