@@ -30,6 +30,10 @@ jobs:
         fetch-depth: 0
         submodules: recursive
 
+    - name: Set git urls to https instead of ssh
+      run: |
+        git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+
     - name: Get npm cache directory
       id: npm-cache
       run: |
@@ -156,7 +160,6 @@ jobs:
       with:
         name: Windows-Installers
         path: ${{ github.workspace }}\replaceme-blockchain-gui\release-builds\
-
 
     - name: Install AWS CLI
       if: steps.check_secrets.outputs.HAS_AWS_SECRET
