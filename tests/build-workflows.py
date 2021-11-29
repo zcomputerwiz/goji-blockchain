@@ -54,16 +54,16 @@ def test_name(dir):
     return "-".join(dir.relative_to(root_path).parts)
 
 
-def transform_template(template_text, gojints):
+def transform_template(template_text, replacements):
     t = template_text
-    for r, v in gojints.items():
+    for r, v in replacements.items():
         t = t.replace(r, v)
     return t
 
 
 # Replace with update_config
-def generate_gojints(conf, dir):
-    gojints = {
+def generate_replacements(conf, dir):
+    replacements = {
         "INSTALL_TIMELORD": read_file(Path(root_path / "runner-templates/install-timelord.include.yml")).rstrip(),
         "CHECKOUT_TEST_BLOCKS_AND_PLOTS": read_file(
             Path(root_path / "runner-templates/checkout-test-plots.include.yml")
@@ -74,22 +74,22 @@ def generate_gojints(conf, dir):
     }
 
     if not conf["checkout_blocks_and_plots"]:
-        gojints[
+        replacements[
             "CHECKOUT_TEST_BLOCKS_AND_PLOTS"
         ] = "# Omitted checking out blocks and plots repo Chia-Network/test-cache"
     if not conf["install_timelord"]:
-        gojints["INSTALL_TIMELORD"] = "# Omitted installing Timelord"
+        replacements["INSTALL_TIMELORD"] = "# Omitted installing Timelord"
     if conf["parallel"]:
-        gojints["PYTEST_PARALLEL_ARGS"] = " -n auto"
+        replacements["PYTEST_PARALLEL_ARGS"] = " -n auto"
     if conf["job_timeout"]:
-        gojints["JOB_TIMEOUT"] = str(conf["job_timeout"])
-    gojints["TEST_DIR"] = "/".join([*dir.relative_to(root_path.parent).parts, "test_*.py"])
-    gojints["TEST_NAME"] = test_name(dir)
+        replacements["JOB_TIMEOUT"] = str(conf["job_timeout"])
+    replacements["TEST_DIR"] = "/".join([*dir.relative_to(root_path.parent).parts, "test_*.py"])
+    replacements["TEST_NAME"] = test_name(dir)
     if "test_name" in conf:
-        gojints["TEST_NAME"] = conf["test_name"]
+        replacements["TEST_NAME"] = conf["test_name"]
     for var in conf["custom_vars"]:
-        gojints[var] = conf[var] if var in conf else ""
-    return gojints
+        replacements[var] = conf[var] if var in conf else ""
+    return replacements
 
 
 # Overwrite with directory specific values
@@ -133,8 +133,8 @@ for os in testconfig.oses:
             logging.info(f"Skipping {dir}: no tests collected")
             continue
         conf = update_config(module_dict(testconfig), dir_config(dir))
-        gojints = generate_gojints(conf, dir)
-        txt = transform_template(template_text, gojints)
+        replacements = generate_replacements(conf, dir)
+        txt = transform_template(template_text, replacements)
         logging.info(f"Writing {os}-{test_name(dir)}")
         workflow_yaml_path: Path = workflow_yaml_file(args.output_dir, os, test_name(dir))
         if workflow_yaml_path not in current_workflows or current_workflows[workflow_yaml_path] != txt:

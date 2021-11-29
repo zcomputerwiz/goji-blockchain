@@ -92,7 +92,7 @@ def configure(
     if testnet:
         if testnet == "true" or testnet == "t":
             print("Setting Testnet")
-            testnet_port = "58444"
+            testnet_port = "57444"
             testnet_introducer = "beta1_introducer.getgoji.net"
             testnet_dns_introducer = "dns-introducer-testnet7.getgoji.net"
             testnet = "testnet7"
@@ -119,7 +119,7 @@ def configure(
 
         elif testnet == "false" or testnet == "f":
             print("Setting Mainnet")
-            mainnet_port = "8444"
+            mainnet_port = "7444"
             mainnet_introducer = "introducer.getgoji.net"
             mainnet_dns_introducer = "dns-introducer.getgoji.net"
             net = "mainnet"

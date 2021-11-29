@@ -94,7 +94,7 @@ network_overrides: &network_overrides
       address_prefix: "txgj"
     testnet7:
       address_prefix: "txgj"
-      default_full_node_port: 58444
+      default_full_node_port: 57444
 
 selected_network: &selected_network "mainnet"
 ALERTS_URL: https://download.getgoji.net/notify/mainnet_alert.txt
